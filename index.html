@@ -396,9 +396,15 @@ function similarity(a, b) {
 
 function getTempLevel(sim) { return Math.min(9, Math.floor(Math.pow(sim, 0.7) * 10)); }
 
+function getDailyWord() {
+  const today = new Date();
+  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  const index = seed % DEFAULT_WORDS.length;
+  return DEFAULT_WORDS[index];
+}
+
 function init() {
-  const pool = customWordList.length > 0 ? customWordList : DEFAULT_WORDS;
-  secretWord = pool[Math.floor(Math.random() * pool.length)].toLowerCase().trim();
+  secretWord = getDailyWord();
   guesses = []; gameWon = false; wordRevealed = false;
   updateWordDisplay();
   document.getElementById('guessList').innerHTML = '';
