@@ -186,13 +186,7 @@
 
   .secret-word-display.hidden-word { letter-spacing: 0.3em; color: var(--border); font-size: 2rem; }
 
-  .reveal-toggle {
-    background: none; border: 1px dashed var(--border); color: var(--text-dim);
-    font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em;
-    text-transform: uppercase; padding: 5px 13px; border-radius: 30px; cursor: pointer;
-    margin-bottom: 24px; transition: all 0.2s;
-  }
-  .reveal-toggle:hover { border-color: var(--cold); color: var(--cold); }
+
 
   .guess-area { display: flex; gap: 10px; margin-bottom: 20px; }
 
@@ -331,8 +325,6 @@
   <div class="game-card" id="gameCard">
     <div class="round-label" id="roundLabel">Round 1</div>
     <div class="secret-word-display hidden-word" id="wordDisplay">● ● ● ● ●</div>
-    <button class="reveal-toggle" id="revealBtn" onclick="toggleReveal()">Show word</button>
-
     <div class="guess-area">
       <input class="guess-input" id="guessInput" type="text" placeholder="Type a guess…" maxlength="30" onkeydown="if(event.key==='Enter') submitGuess()">
       <button class="btn-guess" id="guessBtn" onclick="submitGuess()">Guess →</button>
@@ -500,10 +492,8 @@ function launchConfetti() {
 
 function newRound() { round++; init(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 function clearHistory() { guesses = []; document.getElementById('guessList').innerHTML = ''; document.getElementById('historySection').style.display = 'none'; document.getElementById('tempDisplay').style.display = 'none'; }
-function toggleReveal() { wordRevealed = !wordRevealed; updateWordDisplay(); document.getElementById('revealBtn').textContent = wordRevealed ? 'Hide word' : 'Show word'; }
 
 init();
 </script>
 </body>
 </html>
-
