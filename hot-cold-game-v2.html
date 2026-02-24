@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hot or Cold</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #0f0e0d;
+    --surface: #1a1917;
+    --border: #2e2c29;
+    --cold: #4ab3d4;
+    --warm: #f5a623;
+    --hot: #e84040;
+    --neutral: #8a8480;
+    --text: #f0ece6;
+    --text-dim: #6b6760;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  .wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 36px 20px 60px;
+  }
+
+  header { text-align: center; margin-bottom: 40px; }
+
+  .logo-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .flame { font-size: 26px; animation: flicker 1.8s ease-in-out infinite alternate; }
+  .snowflake { font-size: 24px; animation: sway 2.4s ease-in-out infinite alternate; }
+
+  @keyframes flicker {
+    0% { transform: scale(1) rotate(-3deg); }
+    100% { transform: scale(1.1) rotate(3deg); }
+  }
+  @keyframes sway {
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(8deg); }
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--cold) 0%, var(--text) 45%, var(--hot) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tagline {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  .admin-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto 28px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .admin-toggle:hover { border-color: var(--neutral); color: var(--text); }
+
+  .admin-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 28px;
+    display: none;
+    animation: slideDown 0.25s ease;
+  }
+  .admin-panel.open { display: block; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .admin-panel h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 16px;
+  }
+
+  .field-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 16px; }
+
+  .field-group label {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .field-group input, .field-group textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    padding: 11px 14px;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .field-group input:focus, .field-group textarea:focus { outline: none; border-color: var(--warm); }
+
+  .admin-hint { font-size: 0.76rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 16px; }
+
+  .btn-set {
+    background: linear-gradient(135deg, #c75a2a, #e84040);
+    border: none; border-radius: 10px; color: white;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+    padding: 11px 22px; cursor: pointer; letter-spacing: 0.04em;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .btn-set:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .game-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .round-label {
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 18px;
+  }
+
+  .secret-word-display {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-break: break-all;
+  }
+
+  .secret-word-display.hidden-word { letter-spacing: 0.3em; color: var(--border); font-size: 2rem; }
+
+  .reveal-toggle {
+    background: none; border: 1px dashed var(--border); color: var(--text-dim);
+    font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 5px 13px; border-radius: 30px; cursor: pointer;
+    margin-bottom: 24px; transition: all 0.2s;
+  }
+  .reveal-toggle:hover { border-color: var(--neutral); color: var(--text); }
+
+  .guess-area { display: flex; gap: 10px; margin-bottom: 20px; }
+
+  .guess-input {
+    flex: 1; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 12px; color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; padding: 13px 16px; transition: border-color 0.2s;
+  }
+  .guess-input:focus { outline: none; border-color: var(--warm); }
+  .guess-input::placeholder { color: var(--text-dim); }
+
+  .btn-guess {
+    background: linear-gradient(135deg, var(--warm), #e8871a);
+    border: none; border-radius: 12px; color: #1a0f00;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+    padding: 13px 20px; cursor: pointer; white-space: nowrap;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .btn-guess:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-guess:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  .temp-display { margin: 0 auto 20px; max-width: 300px; display: none; }
+  .temp-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
+
+  .temp-bar-track { height: 8px; background: var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+  .temp-bar-fill { height: 100%; width: 0%; border-radius: 10px; transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1), background 0.6s ease; }
+
+  .temp-word {
+    font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700;
+    transition: color 0.4s; color: var(--neutral); min-height: 40px;
+  }
+
+  .win-banner {
+    background: linear-gradient(135deg, rgba(245,166,35,0.12), rgba(232,64,64,0.08));
+    border: 1px solid rgba(245,166,35,0.3);
+    border-radius: 16px; padding: 24px; text-align: center;
+    margin-bottom: 24px; display: none;
+    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .win-banner.show { display: block; }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .win-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--warm); margin-bottom: 6px; }
+  .win-banner .answer-reveal { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--text); margin: 10px 0; }
+  .win-banner p { color: var(--text-dim); font-size: 0.88rem; }
+
+  .btn-new-round {
+    background: linear-gradient(135deg, var(--cold), #2a8fa8);
+    border: none; border-radius: 12px; color: white;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+    padding: 11px 26px; cursor: pointer; letter-spacing: 0.04em; margin-top: 14px;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .btn-new-round:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .history-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .history-header span { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
+
+  .btn-clear {
+    background: none; border: 1px solid var(--border); color: var(--text-dim);
+    font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-clear:hover { border-color: var(--neutral); color: var(--text); }
+
+  .guess-list { display: flex; flex-direction: column; gap: 7px; max-height: 300px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
+  .guess-item {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 11px 14px;
+    animation: guessIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes guessIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+
+  .guess-item.winner { border-color: #f5a623; background: rgba(245,166,35,0.06); }
+  .guess-text { font-size: 0.92rem; font-weight: 500; text-transform: capitalize; }
+  .guess-meta { display: flex; align-items: center; gap: 8px; }
+  .guess-badge { font-family: 'Playfair Display', serif; font-size: 0.85rem; font-weight: 700; }
+  .guess-num { font-size: 0.7rem; color: var(--text-dim); background: var(--border); padding: 2px 7px; border-radius: 20px; }
+
+  .game-footer { text-align: center; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.08em; margin-top: 36px; }
+
+  .confetti-piece {
+    position: fixed; width: 8px; height: 8px; border-radius: 2px;
+    pointer-events: none; z-index: 999; animation: fall linear forwards;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <div class="logo-line">
+      <span class="snowflake">❄</span>
+      <h1>Hot or Cold</h1>
+      <span class="flame">🔥</span>
+    </div>
+    <p class="tagline">Guess the secret word</p>
+  </header>
+
+  <button class="admin-toggle" onclick="toggleAdmin()">⚙ Host Settings</button>
+
+  <div class="admin-panel" id="adminPanel">
+    <h3>Set the Secret Word</h3>
+    <p class="admin-hint">Enter a word for your team to guess. Leave blank to pull randomly from the default list. Players won't see the word unless they tap "Show word."</p>
+    <div class="field-group">
+      <label>Secret Word</label>
+      <input type="text" id="adminWordInput" placeholder="e.g. umbrella, promotion, stapler…" maxlength="30">
+    </div>
+    <div class="field-group">
+      <label>Custom Word List (one per line, optional)</label>
+      <textarea id="adminWordList" rows="4" placeholder="pineapple&#10;telescope&#10;negotiation&#10;…"></textarea>
+    </div>
+    <button class="btn-set" onclick="setWord()">Set Word & Start Round</button>
+  </div>
+
+  <div class="win-banner" id="winBanner">
+    <h2>🎉 Got it!</h2>
+    <div class="answer-reveal" id="winWord"></div>
+    <p id="winMsg"></p>
+    <button class="btn-new-round" onclick="newRound()">New Round →</button>
+  </div>
+
+  <div class="game-card" id="gameCard">
+    <div class="round-label" id="roundLabel">Round 1</div>
+    <div class="secret-word-display hidden-word" id="wordDisplay">● ● ● ● ●</div>
+    <button class="reveal-toggle" id="revealBtn" onclick="toggleReveal()">Show word</button>
+
+    <div class="guess-area">
+      <input class="guess-input" id="guessInput" type="text" placeholder="Type a guess…" maxlength="30" onkeydown="if(event.key==='Enter') submitGuess()">
+      <button class="btn-guess" id="guessBtn" onclick="submitGuess()">Guess →</button>
+    </div>
+
+    <div class="temp-display" id="tempDisplay">
+      <div class="temp-label">Temperature</div>
+      <div class="temp-bar-track"><div class="temp-bar-fill" id="tempBar"></div></div>
+      <div class="temp-word" id="tempWord"></div>
+    </div>
+  </div>
+
+  <div id="historySection" style="display:none">
+    <div class="history-header">
+      <span>Your Guesses</span>
+      <button class="btn-clear" onclick="clearHistory()">Clear</button>
+    </div>
+    <div class="guess-list" id="guessList"></div>
+  </div>
+
+  <div class="game-footer">Made for the team · Hot or Cold</div>
+</div>
+
+<script>
+const DEFAULT_WORDS = [
+  "umbrella","telescope","celebration","negotiation","blueprint","deadline",
+  "compass","fireplace","greenhouse","keyboard","lighthouse","marathon",
+  "notebook","orchestra","passport","rainbow","sidewalk","thunderstorm",
+  "volcano","waterfall","anchor","balcony","carousel","diamond","elevator",
+  "fountain","glacier","harvest","island","jungle","lantern","meadow",
+  "network","overtime","pipeline","quarantine","renovation","satellite",
+  "training","upgrade","vacancy","window","expedition","promotion","feedback"
+];
+
+const TEMP_LEVELS = [
+  { label: "Freezing",    color: "#4ab3d4", pct: 5   },
+  { label: "Ice Cold",    color: "#5fc8e0", pct: 15  },
+  { label: "Cold",        color: "#74d4df", pct: 25  },
+  { label: "Cool",        color: "#89d8c8", pct: 35  },
+  { label: "Lukewarm",    color: "#a0d4a0", pct: 45  },
+  { label: "Warm",        color: "#c8ce6a", pct: 58  },
+  { label: "Getting Hot", color: "#e8c24a", pct: 70  },
+  { label: "Hot!",        color: "#f5a623", pct: 82  },
+  { label: "Scorching!",  color: "#f07020", pct: 92  },
+  { label: "🔥 Burning!", color: "#e84040", pct: 100 },
+];
+
+const EMOJIS = ["🧊","🥶","❄️","🌬","😐","☀️","🌡","🔥","🥵","💥"];
+
+let secretWord = "", customWordList = [], guesses = [], round = 1, wordRevealed = false, gameWon = false;
+
+function similarity(a, b) {
+  a = a.toLowerCase().trim(); b = b.toLowerCase().trim();
+  if (a === b) return 1.0;
+  const minLen = Math.min(a.length, b.length);
+  let prefixMatch = 0;
+  for (let i = 0; i < minLen; i++) { if (a[i] === b[i]) prefixMatch++; else break; }
+  const prefixScore = prefixMatch / Math.max(a.length, b.length);
+  const getBigrams = s => { const bg = new Set(); for (let i = 0; i < s.length - 1; i++) bg.add(s[i]+s[i+1]); return bg; };
+  const bgA = getBigrams(a), bgB = getBigrams(b);
+  let shared = 0; bgA.forEach(bg => { if (bgB.has(bg)) shared++; });
+  const bigramScore = (2 * shared) / (bgA.size + bgB.size + 0.001);
+  const setA = new Set(a), setB = new Set(b); let commonLetters = 0;
+  setA.forEach(c => { if (setB.has(c)) commonLetters++; });
+  const letterScore = commonLetters / Math.max(setA.size, setB.size);
+  const lenScore = 1 - Math.abs(a.length - b.length) / Math.max(a.length, b.length);
+  return (prefixScore * 0.35) + (bigramScore * 0.30) + (letterScore * 0.20) + (lenScore * 0.15);
+}
+
+function getTempLevel(sim) { return Math.min(9, Math.floor(Math.pow(sim, 0.7) * 10)); }
+
+function init() {
+  const pool = customWordList.length > 0 ? customWordList : DEFAULT_WORDS;
+  secretWord = pool[Math.floor(Math.random() * pool.length)].toLowerCase().trim();
+  guesses = []; gameWon = false; wordRevealed = false;
+  updateWordDisplay();
+  document.getElementById('guessList').innerHTML = '';
+  document.getElementById('historySection').style.display = 'none';
+  document.getElementById('tempDisplay').style.display = 'none';
+  document.getElementById('winBanner').classList.remove('show');
+  document.getElementById('roundLabel').textContent = `Round ${round}`;
+  document.getElementById('guessInput').value = '';
+  document.getElementById('guessInput').disabled = false;
+  document.getElementById('guessBtn').disabled = false;
+  document.getElementById('revealBtn').textContent = 'Show word';
+}
+
+function updateWordDisplay() {
+  const el = document.getElementById('wordDisplay');
+  if (wordRevealed) { el.textContent = secretWord; el.classList.remove('hidden-word'); }
+  else { el.textContent = '● '.repeat(secretWord.length).trim(); el.classList.add('hidden-word'); }
+}
+
+function toggleAdmin() { document.getElementById('adminPanel').classList.toggle('open'); }
+
+function setWord() {
+  const inputVal = document.getElementById('adminWordInput').value.trim().toLowerCase();
+  const listVal = document.getElementById('adminWordList').value.trim();
+  if (listVal) customWordList = listVal.split('\n').map(w => w.trim()).filter(w => w.length > 0);
+  if (inputVal) { secretWord = inputVal; guesses = []; gameWon = false; wordRevealed = false; updateWordDisplay();
+    document.getElementById('guessList').innerHTML = '';
+    document.getElementById('historySection').style.display = 'none';
+    document.getElementById('tempDisplay').style.display = 'none';
+    document.getElementById('winBanner').classList.remove('show');
+    document.getElementById('guessInput').value = '';
+    document.getElementById('guessInput').disabled = false;
+    document.getElementById('guessBtn').disabled = false;
+    document.getElementById('revealBtn').textContent = 'Show word';
+  } else { init(); }
+  document.getElementById('adminWordInput').value = '';
+  document.getElementById('adminPanel').classList.remove('open');
+}
+
+function submitGuess() {
+  if (gameWon) return;
+  const input = document.getElementById('guessInput');
+  const guess = input.value.trim().toLowerCase();
+  if (!guess) return;
+  input.value = '';
+  const sim = similarity(guess, secretWord);
+  const level = getTempLevel(sim);
+  const isWin = guess === secretWord;
+  guesses.unshift({ word: guess, level, num: guesses.length + 1 });
+  const td = document.getElementById('tempDisplay'); td.style.display = 'block';
+  const bar = document.getElementById('tempBar'); const tw = document.getElementById('tempWord');
+  const lvl = TEMP_LEVELS[level];
+  setTimeout(() => { bar.style.width = lvl.pct + '%'; bar.style.background = lvl.color; }, 50);
+  tw.textContent = isWin ? '🎉 You got it!' : lvl.label;
+  tw.style.color = lvl.color;
+  renderGuess(guess, level, isWin, guesses.length);
+  document.getElementById('historySection').style.display = 'block';
+  if (isWin) { gameWon = true; setTimeout(() => showWin(), 400); }
+  input.focus();
+}
+
+function renderGuess(word, level, isWin, num) {
+  const list = document.getElementById('guessList');
+  const item = document.createElement('div');
+  item.className = 'guess-item' + (isWin ? ' winner' : '');
+  item.innerHTML = `<div class="guess-text">${word}</div><div class="guess-meta"><span class="guess-badge" style="color:${TEMP_LEVELS[level].color}">${EMOJIS[level]} ${TEMP_LEVELS[level].label}</span><span class="guess-num">#${num}</span></div>`;
+  list.prepend(item);
+}
+
+function showWin() {
+  const banner = document.getElementById('winBanner'); banner.classList.add('show');
+  document.getElementById('winWord').textContent = `"${secretWord}"`;
+  document.getElementById('winMsg').textContent = `Solved in ${guesses.length} guess${guesses.length === 1 ? '' : 'es'} 🏆`;
+  document.getElementById('guessInput').disabled = true;
+  document.getElementById('guessBtn').disabled = true;
+  launchConfetti();
+  banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function launchConfetti() {
+  const colors = ['#f5a623','#e84040','#4ab3d4','#f0ece6','#89d8c8'];
+  for (let i = 0; i < 48; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div'); p.className = 'confetti-piece';
+      p.style.cssText = `left:${Math.random()*100}vw;top:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};width:${4+Math.random()*8}px;height:${4+Math.random()*8}px;border-radius:${Math.random()>0.5?'50%':'2px'};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*0.5}s;`;
+      document.body.appendChild(p); setTimeout(() => p.remove(), 3500);
+    }, i * 30);
+  }
+}
+
+function newRound() { round++; init(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function clearHistory() { guesses = []; document.getElementById('guessList').innerHTML = ''; document.getElementById('historySection').style.display = 'none'; document.getElementById('tempDisplay').style.display = 'none'; }
+function toggleReveal() { wordRevealed = !wordRevealed; updateWordDisplay(); document.getElementById('revealBtn').textContent = wordRevealed ? 'Hide word' : 'Show word'; }
+
+init();
+</script>
+</body>
+</html>
