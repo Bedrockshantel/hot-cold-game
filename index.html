@@ -569,7 +569,7 @@ function renderMyBoard() {
 async function submitGuess() {
   if (gameWon) return;
   const input = document.getElementById('guessInput');
-  const guess = input.value.trim().toLowerCase();
+  const guess = input.value.trim().toLowerCase(); // normalize for comparison
   if (!guess) return;
   input.value = '';
 
@@ -630,7 +630,22 @@ function lockGame(isMe) {
 }
 
 // ─── ADMIN ────────────────────────────────────────────────────────────────────
-function toggleAdmin() { document.getElementById('adminPanel').classList.toggle('open'); }
+const ADMIN_PASSWORD = 'Bedrockwordgame';
+let adminUnlocked = false;
+
+function toggleAdmin() {
+  if (adminUnlocked) {
+    document.getElementById('adminPanel').classList.toggle('open');
+    return;
+  }
+  const pw = prompt('Enter host password:');
+  if (pw === ADMIN_PASSWORD) {
+    adminUnlocked = true;
+    document.getElementById('adminPanel').classList.add('open');
+  } else if (pw !== null) {
+    alert('Incorrect password.');
+  }
+}
 
 function setWord() {
   const val = document.getElementById('adminWordInput').value.trim().toLowerCase();
