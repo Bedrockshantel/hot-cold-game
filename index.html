@@ -30,166 +30,140 @@
     min-height: 100vh;
   }
 
-  .wrapper {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 36px 20px 60px;
-  }
+  .wrapper { max-width: 680px; margin: 0 auto; padding: 36px 20px 60px; }
 
-  header { text-align: center; margin-bottom: 40px; }
+  header { text-align: center; margin-bottom: 32px; }
 
-  .logo-line {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 6px;
-  }
+  .logo-line { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 6px; }
 
   .flame { font-size: 26px; animation: flicker 1.8s ease-in-out infinite alternate; }
   .snowflake { font-size: 24px; animation: sway 2.4s ease-in-out infinite alternate; }
 
-  @keyframes flicker {
-    0% { transform: scale(1) rotate(-3deg); }
-    100% { transform: scale(1.1) rotate(3deg); }
-  }
-  @keyframes sway {
-    0% { transform: rotate(-8deg); }
-    100% { transform: rotate(8deg); }
-  }
+  @keyframes flicker { 0% { transform: scale(1) rotate(-3deg); } 100% { transform: scale(1.1) rotate(3deg); } }
+  @keyframes sway { 0% { transform: rotate(-8deg); } 100% { transform: rotate(8deg); } }
 
   h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2.2rem, 6vw, 3.2rem);
-    font-weight: 900;
-    letter-spacing: -0.02em;
+    font-weight: 900; letter-spacing: -0.02em;
     background: linear-gradient(135deg, var(--cold) 0%, #2d5f8a 45%, var(--hot) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
 
-  .tagline {
-    color: var(--text-dim);
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin-top: 8px;
-  }
+  .tagline { color: var(--text-dim); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 8px; }
 
-  .admin-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 0 auto 28px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text-dim);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 8px 18px;
-    border-radius: 40px;
-    cursor: pointer;
-    transition: all 0.2s;
+  /* NAME MODAL */
+  .name-modal-overlay {
+    position: fixed; inset: 0; background: rgba(30,42,58,0.5);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100; backdrop-filter: blur(4px); animation: fadeIn 0.2s ease;
+  }
+  .name-modal-overlay.hidden { display: none; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .name-modal {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 36px 32px; width: 100%; max-width: 400px; margin: 20px;
+    box-shadow: 0 20px 60px rgba(30,42,58,0.2);
+    animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+  .name-modal h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+  .name-modal p { color: var(--text-dim); font-size: 0.88rem; margin-bottom: 20px; line-height: 1.5; }
+
+  .name-input {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; padding: 13px 16px; margin-bottom: 14px; transition: border-color 0.2s;
+  }
+  .name-input:focus { outline: none; border-color: var(--cold); box-shadow: 0 0 0 3px rgba(58,143,194,0.12); }
+
+  .btn-join {
+    width: 100%; background: linear-gradient(135deg, #2d6ea8, #3a8fc2);
+    border: none; border-radius: 12px; color: white;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+    padding: 14px; cursor: pointer; letter-spacing: 0.04em;
+    transition: opacity 0.2s, transform 0.1s; box-shadow: 0 2px 8px rgba(58,143,194,0.3);
+  }
+  .btn-join:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* PLAYER BAR */
+  .player-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 10px 16px; margin-bottom: 20px;
     box-shadow: 0 1px 4px var(--shadow);
+  }
+  .player-name-display { font-size: 0.88rem; font-weight: 500; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .player-name-display span { color: var(--cold); font-weight: 600; }
+  .btn-change-name {
+    background: none; border: 1px solid var(--border); color: var(--text-dim);
+    font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-change-name:hover { border-color: var(--cold); color: var(--cold); }
+
+  /* ADMIN */
+  .admin-toggle {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin: 0 auto 20px; background: var(--surface);
+    border: 1px solid var(--border); color: var(--text-dim);
+    font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 8px 18px; border-radius: 40px; cursor: pointer;
+    transition: all 0.2s; box-shadow: 0 1px 4px var(--shadow);
   }
   .admin-toggle:hover { border-color: var(--cold); color: var(--cold); }
 
   .admin-panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 28px;
-    display: none;
-    animation: slideDown 0.25s ease;
-    box-shadow: 0 4px 16px var(--shadow);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px; margin-bottom: 20px;
+    display: none; animation: slideDown 0.25s ease; box-shadow: 0 4px 16px var(--shadow);
   }
   .admin-panel.open { display: block; }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
+  .admin-panel h3 { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 12px; }
+  .admin-hint { font-size: 0.76rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 14px; }
+  .field-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+  .field-group label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
+  .field-group input {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 10px;
+    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.92rem; padding: 11px 14px; transition: border-color 0.2s;
   }
-
-  .admin-panel h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    margin-bottom: 16px;
-    color: var(--text);
-  }
-
-  .field-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 16px; }
-
-  .field-group label {
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-  }
-
-  .field-group input, .field-group textarea {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.92rem;
-    padding: 11px 14px;
-    transition: border-color 0.2s;
-    resize: vertical;
-  }
-  .field-group input:focus, .field-group textarea:focus { outline: none; border-color: var(--cold); }
-
-  .admin-hint { font-size: 0.76rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 16px; }
+  .field-group input:focus { outline: none; border-color: var(--cold); }
+  .admin-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
   .btn-set {
-    background: linear-gradient(135deg, #2d6ea8, #3a8fc2);
-    border: none; border-radius: 10px; color: white;
+    background: linear-gradient(135deg, #2d6ea8, #3a8fc2); border: none; border-radius: 10px; color: white;
     font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
     padding: 11px 22px; cursor: pointer; letter-spacing: 0.04em;
-    transition: opacity 0.2s, transform 0.1s;
-    box-shadow: 0 2px 8px rgba(58,143,194,0.3);
+    transition: opacity 0.2s, transform 0.1s; box-shadow: 0 2px 8px rgba(58,143,194,0.3);
   }
   .btn-set:hover { opacity: 0.88; transform: translateY(-1px); }
 
+  .btn-reset-board {
+    background: none; border: 1px solid var(--border); color: var(--text-dim);
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    padding: 11px 18px; border-radius: 10px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-reset-board:hover { border-color: var(--hot); color: var(--hot); }
+
+  /* GAME CARD */
   .game-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 32px 28px;
-    text-align: center;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 20px var(--shadow);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 28px 24px; text-align: center;
+    margin-bottom: 20px; box-shadow: 0 4px 20px var(--shadow);
   }
-
-  .round-label {
-    font-size: 0.7rem; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--text-dim); margin-bottom: 18px;
-  }
-
+  .round-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; }
   .secret-word-display {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 6vw, 2.8rem);
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 6px;
-    min-height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    word-break: break-all;
+    font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 700; color: var(--text); margin-bottom: 20px; min-height: 48px;
+    display: flex; align-items: center; justify-content: center;
   }
+  .secret-word-display.hidden-word { letter-spacing: 0.3em; color: var(--border); font-size: 1.8rem; }
 
-  .secret-word-display.hidden-word { letter-spacing: 0.3em; color: var(--border); font-size: 2rem; }
-
-
-
-  .guess-area { display: flex; gap: 10px; margin-bottom: 20px; }
-
+  .guess-area { display: flex; gap: 10px; margin-bottom: 16px; }
   .guess-input {
     flex: 1; background: var(--surface2); border: 1px solid var(--border);
     border-radius: 12px; color: var(--text); font-family: 'DM Sans', sans-serif;
@@ -197,98 +171,94 @@
   }
   .guess-input:focus { outline: none; border-color: var(--cold); box-shadow: 0 0 0 3px rgba(58,143,194,0.12); }
   .guess-input::placeholder { color: var(--text-dim); }
+  .guess-input:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .btn-guess {
-    background: linear-gradient(135deg, #2d6ea8, #3a8fc2);
-    border: none; border-radius: 12px; color: white;
+    background: linear-gradient(135deg, #2d6ea8, #3a8fc2); border: none; border-radius: 12px; color: white;
     font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
     padding: 13px 20px; cursor: pointer; white-space: nowrap;
-    transition: opacity 0.2s, transform 0.1s;
-    box-shadow: 0 2px 8px rgba(58,143,194,0.3);
+    transition: opacity 0.2s, transform 0.1s; box-shadow: 0 2px 8px rgba(58,143,194,0.3);
   }
   .btn-guess:hover { opacity: 0.88; transform: translateY(-1px); }
   .btn-guess:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
 
-  .temp-display { margin: 0 auto 20px; max-width: 300px; display: none; }
+  .temp-display { margin: 0 auto; max-width: 300px; display: none; }
   .temp-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
-
   .temp-bar-track { height: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
   .temp-bar-fill { height: 100%; width: 0%; border-radius: 10px; transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1), background 0.6s ease; }
+  .temp-word { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; transition: color 0.4s; color: var(--neutral); min-height: 36px; }
 
-  .temp-word {
-    font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700;
-    transition: color 0.4s; color: var(--neutral); min-height: 40px;
-  }
-
+  /* WIN BANNER */
   .win-banner {
     background: linear-gradient(135deg, rgba(58,143,194,0.08), rgba(214,64,64,0.06));
-    border: 1px solid rgba(58,143,194,0.25);
-    border-radius: 16px; padding: 24px; text-align: center;
-    margin-bottom: 24px; display: none;
-    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
-    box-shadow: 0 4px 20px var(--shadow);
+    border: 1px solid rgba(58,143,194,0.25); border-radius: 16px; padding: 24px; text-align: center;
+    margin-bottom: 20px; display: none;
+    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1); box-shadow: 0 4px 20px var(--shadow);
   }
   .win-banner.show { display: block; }
-
-  @keyframes popIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
   .win-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--cold); margin-bottom: 6px; }
-  .win-banner .answer-reveal { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--text); margin: 10px 0; }
-  .win-banner p { color: var(--text-dim); font-size: 0.88rem; }
+  .win-banner .winner-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--text); margin: 8px 0 4px; font-weight: 700; }
+  .win-banner .answer-reveal { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 4px; }
+  .win-banner .guess-count { font-size: 0.85rem; color: var(--text-dim); }
 
-  .btn-new-round {
-    background: linear-gradient(135deg, #2d6ea8, #3a8fc2);
-    border: none; border-radius: 12px; color: white;
-    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
-    padding: 11px 26px; cursor: pointer; letter-spacing: 0.04em; margin-top: 14px;
-    transition: opacity 0.2s, transform 0.1s;
-    box-shadow: 0 2px 8px rgba(58,143,194,0.3);
+  /* BOARDS */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+
+  .board { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; box-shadow: 0 2px 10px var(--shadow); }
+  .board-title {
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: space-between;
   }
-  .btn-new-round:hover { opacity: 0.88; transform: translateY(-1px); }
+  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #4caf7d; animation: pulse 2s ease-in-out infinite; display: inline-block; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
 
-  .history-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-  .history-header span { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
-
-  .btn-clear {
-    background: none; border: 1px solid var(--border); color: var(--text-dim);
-    font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.08em;
-    text-transform: uppercase; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.2s;
-  }
-  .btn-clear:hover { border-color: var(--cold); color: var(--cold); }
-
-  .guess-list { display: flex; flex-direction: column; gap: 7px; max-height: 300px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  .guess-list { display: flex; flex-direction: column; gap: 6px; max-height: 320px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 
   .guess-item {
     display: flex; align-items: center; justify-content: space-between;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 10px; padding: 11px 14px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 9px 12px;
     animation: guessIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
-    box-shadow: 0 1px 4px var(--shadow);
   }
-  @keyframes guessIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes guessIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+  .guess-item.winner-guess { border-color: var(--cold); background: rgba(58,143,194,0.08); }
+  .guess-left { display: flex; flex-direction: column; gap: 2px; }
+  .guess-word { font-size: 0.88rem; font-weight: 500; text-transform: capitalize; color: var(--text); }
+  .guess-player { font-size: 0.7rem; color: var(--text-dim); }
+  .guess-badge { font-size: 0.8rem; font-weight: 700; font-family: 'Playfair Display', serif; white-space: nowrap; }
+  .empty-state { font-size: 0.8rem; color: var(--text-dim); text-align: center; padding: 16px 0; }
 
-  .guess-item.winner { border-color: var(--cold); background: rgba(58,143,194,0.06); }
-  .guess-text { font-size: 0.92rem; font-weight: 500; text-transform: capitalize; color: var(--text); }
-  .guess-meta { display: flex; align-items: center; gap: 8px; }
-  .guess-badge { font-family: 'Playfair Display', serif; font-size: 0.85rem; font-weight: 700; }
-  .guess-num { font-size: 0.7rem; color: var(--text-dim); background: var(--surface2); border: 1px solid var(--border); padding: 2px 7px; border-radius: 20px; }
+  .locked-msg {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 18px; text-align: center; font-size: 0.85rem; color: var(--text-dim);
+    margin-bottom: 16px; display: none;
+  }
+  .locked-msg.show { display: block; }
+
+  .status-bar {
+    text-align: center; font-size: 0.72rem; color: var(--text-dim);
+    margin-bottom: 12px; height: 18px;
+  }
 
   .game-footer { text-align: center; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.08em; margin-top: 36px; }
 
-  .confetti-piece {
-    position: fixed; width: 8px; height: 8px; border-radius: 2px;
-    pointer-events: none; z-index: 999; animation: fall linear forwards;
-  }
-  @keyframes fall {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-  }
+  .confetti-piece { position: fixed; width: 8px; height: 8px; border-radius: 2px; pointer-events: none; z-index: 999; animation: fall linear forwards; }
+  @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
 </style>
 </head>
 <body>
+
+<div class="name-modal-overlay hidden" id="nameModal">
+  <div class="name-modal">
+    <h2>👋 Welcome!</h2>
+    <p>Enter your name so the team can see who's guessing. We'll remember it for next time.</p>
+    <input class="name-input" id="nameInput" type="text" placeholder="Your first name…" maxlength="24" onkeydown="if(event.key==='Enter') saveName()">
+    <button class="btn-join" onclick="saveName()">Let's Play →</button>
+  </div>
+</div>
+
 <div class="wrapper">
   <header>
     <div class="logo-line">
@@ -296,40 +266,44 @@
       <h1>Hot or Cold</h1>
       <span class="flame">🔥</span>
     </div>
-    <p class="tagline">Guess the secret word</p>
+    <p class="tagline">Word of the Day</p>
   </header>
 
-  <button class="admin-toggle" onclick="toggleAdmin()">⚙ Host Settings</button>
+  <div class="player-bar" id="playerBar" style="display:none">
+    <div class="player-name-display">Playing as <span id="displayName"></span></div>
+    <button class="btn-change-name" onclick="changeName()">Change</button>
+  </div>
 
+  <button class="admin-toggle" onclick="toggleAdmin()">⚙ Host Settings</button>
   <div class="admin-panel" id="adminPanel">
-    <h3>Set the Secret Word</h3>
-    <p class="admin-hint">Enter a word for your team to guess. Leave blank to pull randomly from the default list. Players won't see the word unless they tap "Show word."</p>
+    <h3>Host Controls</h3>
+    <p class="admin-hint">Override today's word, or reset the board to clear all guesses and the winner so everyone can play again.</p>
     <div class="field-group">
-      <label>Secret Word</label>
-      <input type="text" id="adminWordInput" placeholder="e.g. umbrella, promotion, stapler…" maxlength="30">
+      <label>Override Word (optional)</label>
+      <input type="text" id="adminWordInput" placeholder="Leave blank to use daily word" maxlength="30">
     </div>
-    <div class="field-group">
-      <label>Custom Word List (one per line, optional)</label>
-      <textarea id="adminWordList" rows="4" placeholder="pineapple&#10;telescope&#10;negotiation&#10;…"></textarea>
+    <div class="admin-actions">
+      <button class="btn-set" onclick="setWord()">Set Word</button>
+      <button class="btn-reset-board" onclick="resetBoard()">Reset Board</button>
     </div>
-    <button class="btn-set" onclick="setWord()">Set Word & Start Round</button>
   </div>
 
   <div class="win-banner" id="winBanner">
-    <h2>🎉 Got it!</h2>
+    <h2>🎉 Solved!</h2>
+    <div class="winner-name" id="winnerName"></div>
     <div class="answer-reveal" id="winWord"></div>
-    <p id="winMsg"></p>
-    <button class="btn-new-round" onclick="newRound()">New Round →</button>
+    <div class="guess-count" id="winMsg"></div>
   </div>
 
-  <div class="game-card" id="gameCard">
-    <div class="round-label" id="roundLabel">Round 1</div>
+  <div class="locked-msg" id="lockedMsg">🔒 The word has been found! Check back tomorrow for a new word.</div>
+
+  <div class="game-card">
+    <div class="round-label">Today's Word</div>
     <div class="secret-word-display hidden-word" id="wordDisplay">● ● ● ● ●</div>
     <div class="guess-area">
       <input class="guess-input" id="guessInput" type="text" placeholder="Type a guess…" maxlength="30" onkeydown="if(event.key==='Enter') submitGuess()">
       <button class="btn-guess" id="guessBtn" onclick="submitGuess()">Guess →</button>
     </div>
-
     <div class="temp-display" id="tempDisplay">
       <div class="temp-label">Temperature</div>
       <div class="temp-bar-track"><div class="temp-bar-fill" id="tempBar"></div></div>
@@ -337,18 +311,31 @@
     </div>
   </div>
 
-  <div id="historySection" style="display:none">
-    <div class="history-header">
-      <span>Your Guesses</span>
-      <button class="btn-clear" onclick="clearHistory()">Clear</button>
+  <div class="status-bar" id="statusBar"></div>
+
+  <div class="two-col">
+    <div class="board">
+      <div class="board-title">
+        <span>All Guesses</span>
+        <span class="live-dot" title="Live — updates every 5 seconds"></span>
+      </div>
+      <div class="guess-list" id="sharedList"><div class="empty-state">No guesses yet — be first!</div></div>
     </div>
-    <div class="guess-list" id="guessList"></div>
+    <div class="board">
+      <div class="board-title"><span>Your Guesses</span></div>
+      <div class="guess-list" id="myList"><div class="empty-state">Your guesses will appear here.</div></div>
+    </div>
   </div>
 
-  <div class="game-footer">Made for the team · Hot or Cold</div>
+  <div class="game-footer">Made for the team · Hot or Cold · <span id="todayDate"></span></div>
 </div>
 
 <script>
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://vhsdxwfwgmctfpfqbolc.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_h_Wtr_A8qSq_BF_ARcYtGg_0_mebF3q';
+
+// ─── WORD LIST ────────────────────────────────────────────────────────────────
 const DEFAULT_WORDS = [
   "umbrella","telescope","celebration","negotiation","blueprint","deadline",
   "compass","fireplace","greenhouse","keyboard","lighthouse","marathon",
@@ -356,7 +343,11 @@ const DEFAULT_WORDS = [
   "volcano","waterfall","anchor","balcony","carousel","diamond","elevator",
   "fountain","glacier","harvest","island","jungle","lantern","meadow",
   "network","overtime","pipeline","quarantine","renovation","satellite",
-  "training","upgrade","vacancy","window","expedition","promotion","feedback"
+  "training","upgrade","vacancy","window","expedition","promotion","feedback",
+  "calendar","champion","envelope","festival","grateful","horizon",
+  "inspire","journey","kingdom","library","mission","natural","opinion",
+  "pattern","quality","rapport","silence","triumph","uniform","venture",
+  "weather","younger","achieve","balance","capture","dolphin","elegant"
 ];
 
 const TEMP_LEVELS = [
@@ -371,134 +362,317 @@ const TEMP_LEVELS = [
   { label: "Scorching!",  color: "#d45020", pct: 92  },
   { label: "🔥 Burning!", color: "#d64040", pct: 100 },
 ];
-
 const EMOJIS = ["🧊","🥶","❄️","🌬","😐","☀️","🌡","🔥","🥵","💥"];
 
-let secretWord = "", customWordList = [], guesses = [], round = 1, wordRevealed = false, gameWon = false;
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let playerName = localStorage.getItem('hotcold_name') || '';
+let secretWord = '';
+let myGuesses = [];
+let pollInterval = null;
+let gameWon = false;
+let lastPollIds = new Set();
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+function getTodayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function getDailyWord() {
+  const today = new Date();
+  const seed = today.getFullYear() * 10000 + (today.getMonth()+1) * 100 + today.getDate();
+  return DEFAULT_WORDS[seed % DEFAULT_WORDS.length];
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 
 function similarity(a, b) {
   a = a.toLowerCase().trim(); b = b.toLowerCase().trim();
   if (a === b) return 1.0;
   const minLen = Math.min(a.length, b.length);
-  let prefixMatch = 0;
-  for (let i = 0; i < minLen; i++) { if (a[i] === b[i]) prefixMatch++; else break; }
-  const prefixScore = prefixMatch / Math.max(a.length, b.length);
-  const getBigrams = s => { const bg = new Set(); for (let i = 0; i < s.length - 1; i++) bg.add(s[i]+s[i+1]); return bg; };
-  const bgA = getBigrams(a), bgB = getBigrams(b);
-  let shared = 0; bgA.forEach(bg => { if (bgB.has(bg)) shared++; });
-  const bigramScore = (2 * shared) / (bgA.size + bgB.size + 0.001);
-  const setA = new Set(a), setB = new Set(b); let commonLetters = 0;
-  setA.forEach(c => { if (setB.has(c)) commonLetters++; });
-  const letterScore = commonLetters / Math.max(setA.size, setB.size);
-  const lenScore = 1 - Math.abs(a.length - b.length) / Math.max(a.length, b.length);
-  return (prefixScore * 0.35) + (bigramScore * 0.30) + (letterScore * 0.20) + (lenScore * 0.15);
+  let pm = 0; for (let i = 0; i < minLen; i++) { if (a[i]===b[i]) pm++; else break; }
+  const pScore = pm / Math.max(a.length, b.length);
+  const bg = s => { const r = new Set(); for (let i=0;i<s.length-1;i++) r.add(s[i]+s[i+1]); return r; };
+  const bA=bg(a),bB=bg(b); let sh=0; bA.forEach(x=>{if(bB.has(x))sh++;});
+  const bScore=(2*sh)/(bA.size+bB.size+0.001);
+  const sA=new Set(a),sB=new Set(b); let cl=0; sA.forEach(c=>{if(sB.has(c))cl++;});
+  const lScore=cl/Math.max(sA.size,sB.size);
+  const lenScore=1-Math.abs(a.length-b.length)/Math.max(a.length,b.length);
+  return pScore*0.35+bScore*0.30+lScore*0.20+lenScore*0.15;
 }
 
-function getTempLevel(sim) { return Math.min(9, Math.floor(Math.pow(sim, 0.7) * 10)); }
+function getTempLevel(sim) { return Math.min(9, Math.floor(Math.pow(sim,0.7)*10)); }
 
-function getDailyWord() {
-  const today = new Date();
-  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-  const index = seed % DEFAULT_WORDS.length;
-  return DEFAULT_WORDS[index];
+// ─── SUPABASE API ─────────────────────────────────────────────────────────────
+async function dbFetch(path, options = {}) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    ...options,
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation',
+      ...(options.headers || {})
+    }
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(err);
+  }
+  const text = await res.text();
+  return text ? JSON.parse(text) : [];
 }
 
-function init() {
-  secretWord = getDailyWord();
-  guesses = []; gameWon = false; wordRevealed = false;
+async function loadSharedGuesses() {
+  return await dbFetch(`guesses?date=eq.${getTodayKey()}&order=created_at.desc&limit=200`);
+}
+
+async function postGuess(entry) {
+  return await dbFetch('guesses', {
+    method: 'POST',
+    body: JSON.stringify({
+      date: getTodayKey(),
+      player: entry.player,
+      word: entry.word,
+      level: entry.level,
+      is_win: entry.isWin
+    })
+  });
+}
+
+async function deleteGuesses() {
+  return await dbFetch(`guesses?date=eq.${getTodayKey()}`, { method: 'DELETE' });
+}
+
+// Winner stored in localStorage keyed by date (fast, no extra DB call needed)
+function getWinnerKey() { return `hotcold_winner_${getTodayKey()}`; }
+function getWinner() { try { return JSON.parse(localStorage.getItem(getWinnerKey())||'null'); } catch { return null; } }
+function setWinner(d) { localStorage.setItem(getWinnerKey(), JSON.stringify(d)); }
+function getWordKey() { return `hotcold_word_${getTodayKey()}`; }
+function getStoredWord() { return localStorage.getItem(getWordKey())||null; }
+function storeWord(w) { localStorage.setItem(getWordKey(), w); }
+
+// ─── NAME ─────────────────────────────────────────────────────────────────────
+function saveName() {
+  const val = document.getElementById('nameInput').value.trim();
+  if (!val) return;
+  playerName = val;
+  localStorage.setItem('hotcold_name', playerName);
+  document.getElementById('nameModal').classList.add('hidden');
+  document.getElementById('playerBar').style.display = 'flex';
+  document.getElementById('displayName').textContent = playerName;
+  startGame();
+}
+
+function changeName() {
+  document.getElementById('nameInput').value = playerName;
+  document.getElementById('nameModal').classList.remove('hidden');
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+async function init() {
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+  const stored = getStoredWord();
+  secretWord = stored || getDailyWord();
+  if (!stored) storeWord(secretWord);
   updateWordDisplay();
-  document.getElementById('guessList').innerHTML = '';
-  document.getElementById('historySection').style.display = 'none';
-  document.getElementById('tempDisplay').style.display = 'none';
-  document.getElementById('winBanner').classList.remove('show');
-  document.getElementById('roundLabel').textContent = `Round ${round}`;
-  document.getElementById('guessInput').value = '';
-  document.getElementById('guessInput').disabled = false;
-  document.getElementById('guessBtn').disabled = false;
-  document.getElementById('revealBtn').textContent = 'Show word';
+
+  // Check winner
+  const winner = getWinner();
+  if (winner) { showWinBanner(winner, false); lockGame(false); }
+
+  if (!playerName) {
+    document.getElementById('nameModal').classList.remove('hidden');
+  } else {
+    document.getElementById('playerBar').style.display = 'flex';
+    document.getElementById('displayName').textContent = playerName;
+    startGame();
+  }
+}
+
+function startGame() {
+  pollShared();
+  startPolling();
 }
 
 function updateWordDisplay() {
   const el = document.getElementById('wordDisplay');
-  if (wordRevealed) { el.textContent = secretWord; el.classList.remove('hidden-word'); }
-  else { el.textContent = '● '.repeat(secretWord.length).trim(); el.classList.add('hidden-word'); }
+  el.textContent = '● '.repeat(secretWord.length).trim();
+  el.classList.add('hidden-word');
 }
 
-function toggleAdmin() { document.getElementById('adminPanel').classList.toggle('open'); }
-
-function setWord() {
-  const inputVal = document.getElementById('adminWordInput').value.trim().toLowerCase();
-  const listVal = document.getElementById('adminWordList').value.trim();
-  if (listVal) customWordList = listVal.split('\n').map(w => w.trim()).filter(w => w.length > 0);
-  if (inputVal) {
-    secretWord = inputVal; guesses = []; gameWon = false; wordRevealed = false; updateWordDisplay();
-    document.getElementById('guessList').innerHTML = '';
-    document.getElementById('historySection').style.display = 'none';
-    document.getElementById('tempDisplay').style.display = 'none';
-    document.getElementById('winBanner').classList.remove('show');
-    document.getElementById('guessInput').value = '';
-    document.getElementById('guessInput').disabled = false;
-    document.getElementById('guessBtn').disabled = false;
-    document.getElementById('revealBtn').textContent = 'Show word';
-  } else { init(); }
-  document.getElementById('adminWordInput').value = '';
-  document.getElementById('adminPanel').classList.remove('open');
+// ─── POLLING ──────────────────────────────────────────────────────────────────
+function startPolling() {
+  if (pollInterval) clearInterval(pollInterval);
+  pollInterval = setInterval(pollShared, 5000);
 }
 
-function submitGuess() {
+async function pollShared() {
+  try {
+    const guesses = await loadSharedGuesses();
+    renderSharedBoard(guesses);
+
+    // Check if someone won
+    const winGuess = guesses.find(g => g.is_win);
+    if (winGuess && !gameWon) {
+      const myWinCount = myGuesses.filter(g => g.isWin).length;
+      const isMe = winGuess.player === playerName && myWinCount > 0;
+      const winData = { name: winGuess.player, word: secretWord, guesses: guesses.filter(g => g.player === winGuess.player).length };
+      setWinner(winData);
+      showWinBanner(winData, isMe);
+      lockGame(isMe);
+    }
+
+    setStatus('');
+  } catch(e) {
+    setStatus('⚠ Could not reach server');
+  }
+}
+
+function setStatus(msg) {
+  document.getElementById('statusBar').textContent = msg;
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderSharedBoard(guesses) {
+  const list = document.getElementById('sharedList');
+  if (!guesses || !guesses.length) {
+    list.innerHTML = '<div class="empty-state">No guesses yet — be first!</div>';
+    return;
+  }
+  list.innerHTML = guesses.map(g => `
+    <div class="guess-item ${g.is_win ? 'winner-guess' : ''}">
+      <div class="guess-left">
+        <div class="guess-word">${escHtml(g.word)}</div>
+        <div class="guess-player">${escHtml(g.player)}</div>
+      </div>
+      <div class="guess-badge" style="color:${TEMP_LEVELS[g.level].color}">${EMOJIS[g.level]} ${TEMP_LEVELS[g.level].label}</div>
+    </div>`).join('');
+}
+
+function renderMyBoard() {
+  const list = document.getElementById('myList');
+  if (!myGuesses.length) {
+    list.innerHTML = '<div class="empty-state">Your guesses will appear here.</div>';
+    return;
+  }
+  list.innerHTML = myGuesses.map(g => `
+    <div class="guess-item ${g.isWin ? 'winner-guess' : ''}">
+      <div class="guess-left"><div class="guess-word">${escHtml(g.word)}</div></div>
+      <div class="guess-badge" style="color:${TEMP_LEVELS[g.level].color}">${EMOJIS[g.level]} ${TEMP_LEVELS[g.level].label}</div>
+    </div>`).join('');
+}
+
+// ─── SUBMIT ───────────────────────────────────────────────────────────────────
+async function submitGuess() {
   if (gameWon) return;
   const input = document.getElementById('guessInput');
   const guess = input.value.trim().toLowerCase();
   if (!guess) return;
   input.value = '';
+
   const sim = similarity(guess, secretWord);
   const level = getTempLevel(sim);
   const isWin = guess === secretWord;
-  guesses.unshift({ word: guess, level, num: guesses.length + 1 });
+  const entry = { word: guess, level, isWin, player: playerName };
+
+  myGuesses.unshift(entry);
+  renderMyBoard();
+
+  // Update temp bar immediately
   const td = document.getElementById('tempDisplay'); td.style.display = 'block';
   const bar = document.getElementById('tempBar'); const tw = document.getElementById('tempWord');
   const lvl = TEMP_LEVELS[level];
   setTimeout(() => { bar.style.width = lvl.pct + '%'; bar.style.background = lvl.color; }, 50);
   tw.textContent = isWin ? '🎉 You got it!' : lvl.label;
   tw.style.color = lvl.color;
-  renderGuess(guess, level, isWin, guesses.length);
-  document.getElementById('historySection').style.display = 'block';
-  if (isWin) { gameWon = true; setTimeout(() => showWin(), 400); }
+
+  // Post to Supabase
+  try {
+    await postGuess(entry);
+    await pollShared(); // Immediately refresh shared board
+  } catch(e) {
+    setStatus('⚠ Guess saved locally but could not sync');
+  }
+
+  if (isWin) {
+    const winData = { name: playerName, word: secretWord, guesses: myGuesses.length };
+    setWinner(winData);
+    showWinBanner(winData, true);
+    lockGame(true);
+  }
+
   input.focus();
 }
 
-function renderGuess(word, level, isWin, num) {
-  const list = document.getElementById('guessList');
-  const item = document.createElement('div');
-  item.className = 'guess-item' + (isWin ? ' winner' : '');
-  item.innerHTML = `<div class="guess-text">${word}</div><div class="guess-meta"><span class="guess-badge" style="color:${TEMP_LEVELS[level].color}">${EMOJIS[level]} ${TEMP_LEVELS[level].label}</span><span class="guess-num">#${num}</span></div>`;
-  list.prepend(item);
-}
-
-function showWin() {
+// ─── WIN + LOCK ───────────────────────────────────────────────────────────────
+function showWinBanner(data, isMe) {
   const banner = document.getElementById('winBanner'); banner.classList.add('show');
-  document.getElementById('winWord').textContent = `"${secretWord}"`;
-  document.getElementById('winMsg').textContent = `Solved in ${guesses.length} guess${guesses.length === 1 ? '' : 'es'} 🏆`;
-  document.getElementById('guessInput').disabled = true;
-  document.getElementById('guessBtn').disabled = true;
-  launchConfetti();
+  document.getElementById('winnerName').textContent = isMe
+    ? `🏆 You cracked it, ${data.name}!`
+    : `🏆 ${data.name} cracked it!`;
+  document.getElementById('winWord').textContent = `The word was "${data.word}"`;
+  document.getElementById('winMsg').textContent = isMe
+    ? `Solved in ${data.guesses} guess${data.guesses===1?'':'es'} · Come back tomorrow for a new word!`
+    : 'Come back tomorrow for a new word!';
+  if (isMe) launchConfetti();
   banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
+function lockGame(isMe) {
+  gameWon = true;
+  document.getElementById('guessInput').disabled = true;
+  document.getElementById('guessBtn').disabled = true;
+  if (!isMe) document.getElementById('lockedMsg').classList.add('show');
+  if (pollInterval) clearInterval(pollInterval);
+}
+
+// ─── ADMIN ────────────────────────────────────────────────────────────────────
+function toggleAdmin() { document.getElementById('adminPanel').classList.toggle('open'); }
+
+function setWord() {
+  const val = document.getElementById('adminWordInput').value.trim().toLowerCase();
+  if (val) { storeWord(val); secretWord = val; updateWordDisplay(); }
+  document.getElementById('adminWordInput').value = '';
+  document.getElementById('adminPanel').classList.remove('open');
+  alert('Word updated! Players will see the new word on their next refresh.');
+}
+
+async function resetBoard() {
+  if (!confirm('Clear ALL guesses and the winner for today across all devices? This cannot be undone.')) return;
+  try {
+    await deleteGuesses();
+    localStorage.removeItem(getWinnerKey());
+    gameWon = false; myGuesses = [];
+    document.getElementById('guessInput').disabled = false;
+    document.getElementById('guessBtn').disabled = false;
+    document.getElementById('lockedMsg').classList.remove('show');
+    document.getElementById('winBanner').classList.remove('show');
+    document.getElementById('tempDisplay').style.display = 'none';
+    renderMyBoard();
+    await pollShared();
+    document.getElementById('adminPanel').classList.remove('open');
+    startPolling();
+  } catch(e) {
+    alert('Reset failed: ' + e.message);
+  }
+}
+
+// ─── CONFETTI ─────────────────────────────────────────────────────────────────
 function launchConfetti() {
   const colors = ['#3a8fc2','#d64040','#5bb8dc','#1e2a3a','#6cbfcc'];
-  for (let i = 0; i < 48; i++) {
+  for (let i = 0; i < 60; i++) {
     setTimeout(() => {
       const p = document.createElement('div'); p.className = 'confetti-piece';
       p.style.cssText = `left:${Math.random()*100}vw;top:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};width:${4+Math.random()*8}px;height:${4+Math.random()*8}px;border-radius:${Math.random()>0.5?'50%':'2px'};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*0.5}s;`;
       document.body.appendChild(p); setTimeout(() => p.remove(), 3500);
-    }, i * 30);
+    }, i * 25);
   }
 }
 
-function newRound() { round++; init(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-function clearHistory() { guesses = []; document.getElementById('guessList').innerHTML = ''; document.getElementById('historySection').style.display = 'none'; document.getElementById('tempDisplay').style.display = 'none'; }
-
+// ─── START ────────────────────────────────────────────────────────────────────
 init();
 </script>
 </body>
