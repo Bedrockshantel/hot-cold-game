@@ -1049,7 +1049,19 @@ function lockGame(isMe) {
 }
 
 // ─── ADMIN ────────────────────────────────────────────────────────────────────
-function toggleAdmin() { document.getElementById('adminPanel').classList.toggle('open'); }
+function toggleAdmin() {
+  const panel = document.getElementById('adminPanel');
+  if (panel.classList.contains('open')) {
+    panel.classList.remove('open');
+    return;
+  }
+  const pwd = prompt('Enter host password:');
+  if (pwd === 'bedrocks') {
+    panel.classList.add('open');
+  } else if (pwd !== null) {
+    alert('Incorrect password.');
+  }
+}
 
 async function setWord() {
   const val = document.getElementById('adminWordInput').value.trim().toLowerCase();
@@ -1071,9 +1083,19 @@ async function setWord() {
 }
 
 async function resetBoard() {
-  if (!confirm('Clear ALL guesses and the winner for today across all devices? This cannot be undone.')) return;
+  if (!confirm('Clear ALL guesses and reset to a new random word across all devices? This cannot be undone.')) return;
   try {
     await deleteGuesses();
+    // Delete word override so a fresh random word is picked
+    await dbFetch(`word_override?date=eq.${getTodayKey()}`, { method: 'DELETE' });
+    // Pick a new random word (different from current)
+    let newWord;
+    do {
+      newWord = DEFAULT_WORDS[Math.floor(Math.random() * DEFAULT_WORDS.length)];
+    } while (newWord === secretWord);
+    await saveWordOverride(newWord);
+    secretWord = newWord;
+    updateWordDisplay();
     localStorage.removeItem(getWinnerKey());
     gameWon = false; myGuesses = [];
     document.getElementById('guessInput').disabled = false;
