@@ -811,9 +811,10 @@ async function fetchWordOverride() {
 }
 
 async function saveWordOverride(word) {
+  // Delete existing entry first, then insert fresh — guarantees overwrite
+  await dbFetch(`word_override?date=eq.${getTodayKey()}`, { method: 'DELETE' });
   await dbFetch('word_override', {
     method: 'POST',
-    headers: { 'Prefer': 'resolution=merge-duplicates' },
     body: JSON.stringify({ date: getTodayKey(), word })
   });
 }
@@ -916,6 +917,10 @@ async function submitGuess() {
   const guess = input.value.trim().toLowerCase();
   if (!guess) return;
   input.value = '';
+
+  // Always re-fetch the current word so manual overrides propagate without refresh
+  const currentWord = await fetchWordOverride();
+  if (currentWord) secretWord = currentWord;
 
   const isWin = guess === secretWord.toLowerCase();
   const score = getSemanticScore(guess, secretWord);
