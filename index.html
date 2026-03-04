@@ -34,9 +34,11 @@
   h1 {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2.2rem, 6vw, 3.2rem); font-weight: 900; letter-spacing: -0.02em;
-    background: linear-gradient(135deg, var(--cold) 0%, #2d5f8a 45%, var(--hot) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    color: var(--text);
   }
+  .word-hot { color: #d64040; }
+  .word-or  { color: #8896aa; }
+  .word-cold { color: #3a8fc2; }
   .tagline { color: var(--text-dim); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 6px; }
 
   .how-to-play {
@@ -243,7 +245,7 @@
   <header>
     <div class="logo-line">
       <span class="snowflake">❄</span>
-      <h1>Hot or Cold</h1>
+      <h1><span class="word-hot">Hot</span> <span class="word-or">or</span> <span class="word-cold">Cold</span></h1>
       <span class="flame">🔥</span>
     </div>
     <p class="tagline">Word of the Day</p>
