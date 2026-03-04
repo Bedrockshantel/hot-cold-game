@@ -329,464 +329,384 @@ const SUPABASE_KEY = 'sb_publishable_h_Wtr_A8qSq_BF_ARcYtGg_0_mebF3q';
 
 // ─── WORD LIST ────────────────────────────────────────────────────────────────
 const DEFAULT_WORDS = [
-  "camera","umbrella","telescope","celebration","negotiation","blueprint","deadline",
-  "compass","fireplace","greenhouse","keyboard","lighthouse","marathon",
-  "notebook","orchestra","passport","rainbow","sidewalk","thunderstorm",
-  "volcano","waterfall","anchor","balcony","carousel","diamond","elevator",
-  "fountain","glacier","harvest","island","jungle","lantern","meadow",
-  "network","overtime","pipeline","quarantine","renovation","satellite",
-  "training","upgrade","vacancy","window","expedition","promotion","feedback",
-  "calendar","champion","envelope","festival","grateful","horizon",
-  "inspire","journey","kingdom","library","mission","natural","opinion",
-  "pattern","quality","rapport","silence","triumph","uniform","venture",
-  "weather","younger","achieve","balance","capture","dolphin","elegant",
-  "popcorn"
+  // Core Values
+  "respect","integrity","accountability","teamwork","excellence",
+  "leadership","trust","commitment","responsibility","collaboration",
+  // Community & Resident Life
+  "community","resident","neighborhood","home","belonging",
+  "service","support","safety","pride","hospitality",
+  // Property & Operations
+  "maintenance","inspection","renovation","repairs","landscaping",
+  "utilities","electrical","plumbing","lease","application",
+  // Bedrock / Foundation
+  "foundation","cornerstone","stone","rock","granite",
+  "strength","solid","structure","stability","groundwork",
+  // Build / Growth
+  "build","construct","anchor","roots","framework",
+  "platform","growth","reliability","consistency","improvement"
 ];
 
 // ─── SEMANTIC MAP ─────────────────────────────────────────────────────────────
-// Scores: 0.9+ = Scorching/Burning, 0.7-0.89 = Hot/Getting Hot,
-//         0.5-0.69 = Warm/Lukewarm, 0.3-0.49 = Cool/Cold
 const SEMANTIC_MAP = {
-  popcorn: {
-    kernel:0.95, corn:0.9, kernels:0.93, buttered:0.88, butter:0.88, snack:0.85,
-    movie:0.82, theater:0.8, cinema:0.8, salt:0.75, caramel:0.78, kettle:0.72,
-    microwave:0.72, crunch:0.7, fluffy:0.65, treat:0.7, munch:0.68, bag:0.6,
-    film:0.58, crunchy:0.7, pop:0.85, munching:0.68, snacking:0.72, airy:0.55,
-    bowl:0.55, food:0.5, salty:0.65, sweet:0.55, appetizer:0.6
+
+  // ── CORE VALUES ──────────────────────────────────────────────────────────────
+  respect: {
+    honor:0.95, dignity:0.95, esteem:0.92, regard:0.92, courtesy:0.92,
+    admire:0.88, considerate:0.88, polite:0.85, acknowledge:0.85, decency:0.88,
+    civility:0.88, manners:0.85, listen:0.78, kind:0.78, fair:0.75,
+    empathy:0.78, thoughtful:0.78, inclusive:0.72, value:0.72, appreciate:0.75,
+    rules:0.35, authority:0.35, title:0.3, rank:0.32, power:0.35
   },
-  camera: {
-    photo:0.95, photograph:0.93, photography:0.92, lens:0.9, shutter:0.88,
-    snapshot:0.88, picture:0.85, flash:0.8, tripod:0.78, zoom:0.75, film:0.78,
-    selfie:0.88, image:0.78, capture:0.75, shoot:0.72, photographer:0.88,
-    aperture:0.82, exposure:0.75, digital:0.62, video:0.65, filter:0.62,
-    instagram:0.65, portrait:0.78, candid:0.72, viewfinder:0.85, pixel:0.65
+  integrity: {
+    honest:0.95, honesty:0.95, ethical:0.92, trustworthy:0.92, principled:0.92,
+    moral:0.92, transparent:0.88, authentic:0.88, genuine:0.88, upright:0.88,
+    credible:0.85, sincere:0.88, consistent:0.78, reliable:0.78, accountable:0.78,
+    fair:0.78, character:0.82, values:0.78, truth:0.85, truthful:0.88,
+    reputation:0.45, image:0.38, professional:0.42, standard:0.42
   },
-  umbrella: {
-    rain:0.9, raincoat:0.82, shelter:0.78, canopy:0.8, cover:0.72, storm:0.75,
-    wet:0.68, drizzle:0.75, protection:0.7, parasol:0.88, sunshade:0.82,
-    waterproof:0.72, portable:0.55, fold:0.65, handle:0.6, spoke:0.72,
-    downpour:0.78, puddle:0.65, weather:0.65, showers:0.75, overcast:0.6
+  accountability: {
+    responsible:0.95, responsibility:0.95, ownership:0.92, answerable:0.92,
+    obligation:0.88, duty:0.88, liable:0.85, deliver:0.82, committed:0.82,
+    consequences:0.82, own:0.78, reliable:0.75, transparent:0.75, promise:0.72,
+    performance:0.72, results:0.68, follow:0.65, dependable:0.75,
+    rules:0.38, report:0.42, review:0.4, manage:0.38, track:0.38
   },
-  telescope: {
-    astronomy:0.92, stars:0.88, space:0.85, lens:0.82, binoculars:0.88,
-    galaxy:0.82, planet:0.85, moon:0.82, observe:0.75, optical:0.78,
-    stargazing:0.92, hubble:0.85, magnify:0.82, universe:0.78, cosmos:0.78,
-    orbit:0.7, astronomer:0.88, night:0.62, distant:0.65, refractor:0.88,
-    eyepiece:0.85, celestial:0.78, nebula:0.75
+  teamwork: {
+    collaborate:0.95, collaboration:0.95, together:0.92, unity:0.92, team:0.95,
+    cooperation:0.92, collective:0.88, partner:0.88, joint:0.85, synergy:0.92,
+    united:0.88, cohesive:0.88, support:0.78, help:0.72, group:0.78,
+    shared:0.82, effort:0.75, coworker:0.82, community:0.72, bond:0.72,
+    meeting:0.38, project:0.42, task:0.35, goal:0.42, plan:0.4
   },
-  celebration: {
-    party:0.92, birthday:0.88, anniversary:0.85, festive:0.88, toast:0.82,
-    champagne:0.82, gather:0.72, milestone:0.82, occasion:0.85, cheer:0.82,
-    confetti:0.88, balloons:0.85, joy:0.78, cake:0.78, event:0.75,
-    holiday:0.78, ceremony:0.85, commemorate:0.85, jubilee:0.88, gala:0.82,
-    gathering:0.78, festivities:0.92, merrymaking:0.85
+  excellence: {
+    outstanding:0.92, exceptional:0.95, superior:0.92, exemplary:0.92,
+    quality:0.88, best:0.88, elite:0.88, premier:0.85, mastery:0.88,
+    distinction:0.88, standard:0.75, achievement:0.82, performance:0.82,
+    strive:0.75, dedicated:0.72, benchmark:0.82, proud:0.72, greatness:0.88,
+    goal:0.42, improve:0.48, effort:0.42, work:0.38, result:0.45
   },
-  negotiation: {
-    deal:0.88, compromise:0.88, agreement:0.85, bargain:0.85, mediate:0.82,
-    contract:0.8, settlement:0.85, terms:0.78, discuss:0.72, haggle:0.88,
-    offer:0.75, concession:0.85, resolve:0.75, dispute:0.78, talk:0.65,
-    arbitration:0.88, diplomacy:0.82, mediation:0.88, barter:0.82,
-    broker:0.75, counteroffer:0.88, leverage:0.72, tradeoff:0.82
+  leadership: {
+    leader:0.95, lead:0.95, guide:0.88, direct:0.85,
+    vision:0.88, inspire:0.88, mentor:0.88, influence:0.88, coach:0.85,
+    captain:0.85, empower:0.85, motivate:0.85, manage:0.72, authority:0.75,
+    strategic:0.72, decision:0.72, drive:0.75, head:0.72, direction:0.78,
+    champion:0.72, team:0.48, senior:0.42, title:0.35, executive:0.48
   },
-  blueprint: {
-    plan:0.88, design:0.88, architecture:0.85, draft:0.85, layout:0.85,
-    schematic:0.92, diagram:0.85, structure:0.78, engineer:0.78, technical:0.75,
-    drawing:0.82, building:0.72, floorplan:0.92, strategy:0.72, map:0.68,
-    sketch:0.78, specs:0.82, specifications:0.88, construct:0.68, framework:0.75,
-    template:0.72, prototype:0.75
+  trust: {
+    faith:0.92, confidence:0.92, rely:0.92, dependable:0.92, reliable:0.92,
+    honest:0.88, credible:0.88, loyal:0.88, loyalty:0.88, integrity:0.85,
+    secure:0.82, bond:0.82, truthful:0.88, safe:0.75, consistent:0.78,
+    transparent:0.78, genuine:0.82, relationship:0.72, promise:0.75, assured:0.78,
+    verify:0.38, check:0.35, confirm:0.38, prove:0.35, test:0.32
   },
-  deadline: {
-    duedate:0.95, due:0.88, cutoff:0.88, timeline:0.85, schedule:0.82,
-    urgent:0.78, overdue:0.85, submit:0.75, pressure:0.78, rush:0.78,
-    clock:0.72, stress:0.72, task:0.65, assignment:0.78, target:0.72,
-    crunch:0.78, date:0.72, limit:0.78, deliverable:0.85, milestone:0.78,
-    countdown:0.82, expiration:0.78
+  commitment: {
+    dedicated:0.95, dedication:0.95, devoted:0.92, devotion:0.92, pledge:0.92,
+    promise:0.88, loyal:0.88, loyalty:0.88, steadfast:0.88, faithful:0.88,
+    persistent:0.85, determined:0.85, obligated:0.85, consistent:0.78,
+    reliable:0.78, deliver:0.75, vow:0.85, honor:0.78, endure:0.72,
+    contract:0.45, signed:0.42, agreed:0.42, bound:0.45, required:0.38
   },
-  compass: {
-    direction:0.92, north:0.88, navigate:0.88, map:0.82, magnetic:0.85,
-    bearing:0.88, south:0.85, east:0.85, west:0.85, orientation:0.88,
-    hiking:0.72, geography:0.72, pointer:0.82, cardinal:0.85, navigation:0.92,
-    true:0.65, needle:0.85, heading:0.82, waypoint:0.75, trekking:0.68
+  responsibility: {
+    accountable:0.95, duty:0.92, obligation:0.92, ownership:0.92,
+    liable:0.88, answerable:0.88, reliable:0.82, dependable:0.82,
+    entrusted:0.88, steward:0.85, charged:0.82, role:0.72, fulfill:0.78,
+    maintain:0.68, manage:0.65, deliver:0.72, integrity:0.72, assigned:0.72,
+    task:0.42, job:0.45, work:0.4, requirement:0.42, standard:0.45
   },
-  fireplace: {
-    fire:0.9, hearth:0.95, flame:0.88, chimney:0.92, mantle:0.88, log:0.85,
-    cozy:0.82, warmth:0.88, fireside:0.95, smoke:0.78, ember:0.88, ash:0.78,
-    wood:0.78, burning:0.82, grate:0.88, firewood:0.88, winter:0.72,
-    crackling:0.85, blaze:0.82, kindle:0.78, soot:0.78
+  collaboration: {
+    teamwork:0.95, together:0.92, partner:0.92, cooperate:0.92,
+    joint:0.88, united:0.88, collective:0.88, shared:0.88, synergy:0.92,
+    coordinate:0.88, unified:0.88, cowork:0.92, contribute:0.78,
+    group:0.78, support:0.75, mutual:0.82, effort:0.72, team:0.88,
+    meeting:0.38, project:0.42, align:0.48, discuss:0.38, plan:0.4
   },
-  greenhouse: {
-    plants:0.88, garden:0.85, grow:0.82, botanical:0.85, nurture:0.78,
-    seedling:0.85, humid:0.82, tropical:0.78, vegetation:0.82, farming:0.72,
-    glass:0.78, sunlight:0.78, cultivate:0.85, harvest:0.72, tomato:0.72,
-    horticultural:0.88, conservatory:0.88, propagate:0.82, soil:0.72,
-    potted:0.72, warmth:0.75, floriculture:0.82
+
+  // ── COMMUNITY & RESIDENT LIFE ─────────────────────────────────────────────
+  community: {
+    neighborhood:0.92, residents:0.92, together:0.88, belonging:0.88,
+    gathering:0.85, group:0.82, shared:0.82, local:0.82, people:0.78,
+    village:0.82, connected:0.85, association:0.85, support:0.75,
+    network:0.78, inclusive:0.82, home:0.78, family:0.82, unity:0.85,
+    area:0.42, place:0.42, zone:0.38, region:0.38, district:0.42
   },
-  keyboard: {
-    typing:0.92, keys:0.92, computer:0.85, type:0.88, letters:0.82,
-    piano:0.78, music:0.72, qwerty:0.95, shortcut:0.82, mechanical:0.82,
-    input:0.85, spacebar:0.92, enter:0.82, backspace:0.88, shift:0.78,
-    laptop:0.78, desktop:0.75, wireless:0.72, clicky:0.78
+  resident: {
+    tenant:0.95, occupant:0.95, renter:0.92, dweller:0.92, inhabitant:0.92,
+    homeowner:0.88, neighbor:0.85, household:0.88, member:0.78,
+    lease:0.82, leaseholder:0.92, community:0.82, family:0.72,
+    home:0.78, live:0.75, stay:0.72, lot:0.75, apartment:0.78,
+    application:0.48, screening:0.52, move:0.42, contact:0.35, account:0.38
   },
-  lighthouse: {
-    beacon:0.92, coast:0.88, shore:0.85, maritime:0.88, sailor:0.82,
-    navigation:0.85, tower:0.85, sea:0.82, rocks:0.75, warning:0.78,
-    harbor:0.82, ship:0.78, flash:0.72, ocean:0.78, guide:0.72,
-    keeper:0.85, lantern:0.82, foghorn:0.85, coastal:0.85, maritime:0.88
+  neighborhood: {
+    community:0.95, street:0.88, block:0.88, surroundings:0.88, vicinity:0.88,
+    local:0.85, area:0.82, residents:0.88, district:0.82, locale:0.85,
+    homes:0.82, nearby:0.82, familiar:0.78, sidewalk:0.75, park:0.72,
+    friendly:0.72, town:0.78, village:0.82, zone:0.65, close:0.68,
+    map:0.35, address:0.42, location:0.42, property:0.48, region:0.42
   },
-  marathon: {
-    race:0.9, running:0.92, run:0.9, miles:0.88, endurance:0.92,
-    finish:0.82, runner:0.92, distance:0.85, pavement:0.78, athlete:0.82,
-    training:0.78, stamina:0.88, sprint:0.75, jog:0.82, medal:0.78,
-    26:0.85, kilometer:0.82, pace:0.85, laps:0.72, route:0.75,
-    roadrace:0.92, charity:0.65
+  home: {
+    house:0.95, dwelling:0.92, residence:0.92, abode:0.92, household:0.92,
+    family:0.88, comfort:0.88, safe:0.82, warm:0.82, belong:0.85,
+    shelter:0.88, haven:0.88, cozy:0.85, community:0.78, neighborhood:0.82,
+    space:0.68, personal:0.72, place:0.72, heart:0.75, roof:0.78,
+    building:0.42, unit:0.45, lot:0.48, address:0.38, structure:0.42
   },
-  notebook: {
-    journal:0.92, notes:0.92, writing:0.85, pages:0.85, pen:0.82,
-    diary:0.88, paper:0.82, lined:0.85, spiral:0.85, composition:0.88,
-    sketching:0.78, memo:0.82, record:0.75, jot:0.85, binder:0.78,
-    school:0.72, study:0.72, ledger:0.75, sketchbook:0.88, planner:0.82
+  belonging: {
+    included:0.95, accepted:0.95, welcome:0.92, connected:0.92,
+    community:0.88, member:0.85, fit:0.82, embrace:0.85, valued:0.88,
+    recognized:0.85, together:0.85, inclusive:0.92, home:0.82,
+    family:0.85, safe:0.75, comfortable:0.82, identity:0.78, bond:0.78,
+    join:0.42, apply:0.38, register:0.35, group:0.48, access:0.38
   },
-  orchestra: {
-    music:0.88, symphony:0.95, musicians:0.92, conductor:0.95, instruments:0.88,
-    strings:0.88, violin:0.88, cello:0.85, brass:0.82, woodwind:0.88,
-    performance:0.82, concert:0.88, ensemble:0.92, philharmonic:0.95,
-    classical:0.85, baton:0.88, score:0.78, harmony:0.82, tempo:0.82
+  service: {
+    help:0.92, assist:0.92, support:0.92, serve:0.95,
+    care:0.88, respond:0.85, deliver:0.82, hospitality:0.88,
+    attend:0.82, provide:0.82, accommodate:0.85, maintenance:0.72,
+    staff:0.72, quality:0.72, responsive:0.85, reliable:0.78,
+    request:0.45, call:0.38, contact:0.38, ticket:0.42
   },
-  passport: {
-    travel:0.88, visa:0.92, border:0.88, customs:0.88, immigration:0.88,
-    document:0.82, identity:0.82, flight:0.78, country:0.78, stamp:0.92,
-    international:0.85, foreign:0.82, country:0.78, expire:0.82, embassy:0.85,
-    citizenship:0.85, identification:0.85, departure:0.78, arrival:0.75
+  support: {
+    help:0.92, assist:0.92, backup:0.92, aid:0.92,
+    care:0.85, encourage:0.85, reliable:0.85, available:0.82,
+    responsive:0.85, guide:0.82, uplift:0.82, team:0.75,
+    community:0.72, service:0.78, comfort:0.75, steady:0.78,
+    system:0.42, tool:0.38, process:0.38, access:0.38, structure:0.42
   },
-  rainbow: {
-    colors:0.92, colorful:0.88, spectrum:0.92, prism:0.88, arc:0.85,
-    rain:0.82, sun:0.78, light:0.75, refraction:0.88, sky:0.82,
-    vibrant:0.78, bright:0.72, hue:0.82, red:0.72, violet:0.78,
-    indigo:0.82, hope:0.72, storm:0.68, double:0.75, weather:0.72
+  safety: {
+    secure:0.95, protected:0.95, safe:0.95, security:0.95,
+    protect:0.88, guard:0.85, shield:0.85, prevent:0.82,
+    hazard:0.82, risk:0.78, emergency:0.78, warning:0.78,
+    aware:0.72, policy:0.68, procedure:0.68, inspection:0.72,
+    rules:0.42, sign:0.38, code:0.45, report:0.42, training:0.48
   },
-  sidewalk: {
-    pavement:0.92, walkway:0.92, path:0.85, pedestrian:0.88, curb:0.88,
-    street:0.82, concrete:0.82, foot:0.78, stroll:0.78, walk:0.88,
-    urban:0.75, city:0.72, crosswalk:0.88, lane:0.75, pave:0.88,
-    tread:0.72, neighborhood:0.72, block:0.75, path:0.85
+  pride: {
+    proud:0.95, honor:0.92, dignity:0.88, achievement:0.88, esteem:0.88,
+    accomplish:0.85, celebrate:0.82, ownership:0.82, represent:0.82,
+    recognition:0.85, respect:0.82, excellence:0.82, community:0.72,
+    identity:0.75, belong:0.75, culture:0.72, team:0.68, spirit:0.72,
+    brand:0.42, image:0.42, reputation:0.48, standard:0.42, display:0.38
   },
-  thunderstorm: {
-    lightning:0.92, thunder:0.95, storm:0.92, rain:0.88, clouds:0.85,
-    bolt:0.88, rumble:0.88, downpour:0.88, electricity:0.82, dark:0.72,
-    weather:0.82, forecast:0.78, severe:0.78, wind:0.78, hail:0.85,
-    flash:0.82, crack:0.78, roar:0.78, tempest:0.88, gust:0.78
+  hospitality: {
+    welcome:0.95, warmth:0.92, friendly:0.92, gracious:0.92, inviting:0.92,
+    service:0.88, guest:0.85, accommodate:0.88, generous:0.85,
+    kind:0.82, attentive:0.88, reception:0.85, care:0.85,
+    home:0.78, comfort:0.82, community:0.72, resident:0.72,
+    office:0.38, visit:0.42, tour:0.42, lobby:0.45, amenity:0.48
   },
-  volcano: {
-    lava:0.95, eruption:0.95, magma:0.92, erupt:0.92, ash:0.88,
-    molten:0.88, crater:0.92, geologic:0.82, tectonic:0.85, explosive:0.82,
-    hawaii:0.78, pompeii:0.82, pyroclastic:0.88, vent:0.85, steam:0.78,
-    geological:0.82, dormant:0.85, active:0.75, island:0.72
+
+  // ── PROPERTY & OPERATIONS ──────────────────────────────────────────────────
+  maintenance: {
+    repair:0.95, fix:0.92, upkeep:0.95, technician:0.92, "work order":0.95,
+    maintain:0.92, service:0.85, inspect:0.82, mechanical:0.82,
+    grounds:0.78, tools:0.78, crew:0.78, respond:0.78,
+    utilities:0.72, vendor:0.72, plumbing:0.75, electrical:0.75,
+    schedule:0.45, request:0.48, ticket:0.48, cost:0.38, budget:0.38
   },
-  waterfall: {
-    cascade:0.95, falls:0.92, water:0.88, plunge:0.88, stream:0.85,
-    rapids:0.88, mist:0.85, pool:0.78, niagara:0.88, cliff:0.78,
-    roar:0.78, rush:0.82, nature:0.72, scenic:0.72, flow:0.82,
-    tumble:0.85, thundering:0.82, tropical:0.68, swim:0.65
-  },
-  anchor: {
-    ship:0.88, boat:0.85, nautical:0.88, hold:0.78, harbor:0.82,
-    chain:0.82, weight:0.75, maritime:0.85, dock:0.82, stability:0.82,
-    sea:0.78, port:0.78, steady:0.75, moor:0.92, vessel:0.82,
-    seafaring:0.85, groundwork:0.68, foundation:0.72
-  },
-  balcony: {
-    terrace:0.92, porch:0.88, deck:0.85, railing:0.88, outdoor:0.78,
-    apartment:0.82, view:0.78, ledge:0.85, floor:0.72, overlook:0.82,
-    veranda:0.92, overhang:0.82, elevation:0.75, scenery:0.72, open:0.65,
-    romeo:0.78, shakespare:0.75, juliet:0.78, city:0.65
-  },
-  carousel: {
-    merry:0.92, horses:0.88, ride:0.88, fair:0.85, amusement:0.88,
-    spin:0.82, rotating:0.85, park:0.78, carnival:0.88, roundabout:0.88,
-    children:0.72, music:0.72, festive:0.75, horse:0.88, spinning:0.85,
-    circular:0.78, rotate:0.82, funfair:0.85
-  },
-  diamond: {
-    gem:0.92, jewel:0.92, ring:0.88, sparkle:0.88, shine:0.82,
-    precious:0.88, engagement:0.85, brilliant:0.85, gemstone:0.92,
-    carat:0.92, facet:0.88, clarity:0.85, carbon:0.82, cut:0.78,
-    luxury:0.78, rare:0.75, glitter:0.78, jewelry:0.88, wedding:0.78
-  },
-  elevator: {
-    lift:0.95, floor:0.88, lobby:0.85, button:0.82, ride:0.78,
-    building:0.82, shaft:0.88, cabin:0.85, door:0.78, vertical:0.88,
-    ascend:0.85, descend:0.85, rise:0.78, escalator:0.85, stories:0.78,
-    skyscraper:0.78, ground:0.72, upper:0.68
-  },
-  fountain: {
-    water:0.88, spray:0.92, jets:0.88, basin:0.88, plaza:0.82,
-    park:0.78, decorative:0.82, splash:0.88, pool:0.82, pump:0.82,
-    sculpture:0.78, coins:0.78, wish:0.78, spout:0.92, flowing:0.85,
-    public:0.72, ornamental:0.85, statue:0.72
-  },
-  glacier: {
-    ice:0.92, frozen:0.88, arctic:0.88, melt:0.85, polar:0.85,
-    iceberg:0.88, cold:0.82, snow:0.82, climate:0.78, global:0.72,
-    alaska:0.82, erosion:0.82, flow:0.78, retreat:0.78, massive:0.72,
-    crevasse:0.92, fjord:0.82, snowfield:0.88
-  },
-  harvest: {
-    crops:0.92, farm:0.88, autumn:0.88, pick:0.82, reap:0.92,
-    season:0.82, gather:0.85, yield:0.88, pumpkin:0.82, grain:0.88,
-    wheat:0.85, corn:0.82, apple:0.78, orchard:0.85, thanksgiving:0.82,
-    fall:0.82, bounty:0.88, abundance:0.82, agricultural:0.85
-  },
-  island: {
-    tropical:0.88, beach:0.88, ocean:0.85, coast:0.82, palm:0.85,
-    isolated:0.82, paradise:0.85, shore:0.85, lagoon:0.88, sea:0.82,
-    remote:0.78, escape:0.75, hawaii:0.85, resort:0.78, surf:0.75,
-    shipwreck:0.78, castaway:0.82, oasis:0.78
-  },
-  jungle: {
-    rainforest:0.95, tropical:0.88, wildlife:0.85, dense:0.82, vines:0.88,
-    canopy:0.85, animals:0.78, explorer:0.78, humid:0.82, vegetation:0.88,
-    monkey:0.82, tiger:0.78, amazon:0.88, safari:0.78, wild:0.82,
-    lush:0.82, foliage:0.88, survival:0.72
-  },
-  lantern: {
-    light:0.88, glow:0.88, candle:0.85, lamp:0.92, flame:0.85,
-    illuminate:0.82, festival:0.82, chinese:0.82, carry:0.72, hang:0.72,
-    porch:0.78, antique:0.75, paper:0.78, outdoor:0.72, camping:0.72,
-    warm:0.78, holiday:0.75, diwali:0.78, lanterns:0.95
-  },
-  meadow: {
-    field:0.92, grass:0.92, flowers:0.88, wildflowers:0.92, open:0.82,
-    countryside:0.88, pastoral:0.92, picnic:0.82, green:0.82, nature:0.78,
-    sunflower:0.82, daisy:0.85, rolling:0.82, landscape:0.78, breeze:0.75,
-    serene:0.78, bloom:0.82, plain:0.82
-  },
-  network: {
-    internet:0.88, connection:0.92, wifi:0.85, linked:0.85, web:0.88,
-    nodes:0.88, grid:0.82, system:0.78, social:0.78, cable:0.78,
-    server:0.82, infrastructure:0.85, hub:0.88, route:0.78, bandwidth:0.85,
-    protocol:0.82, digital:0.75, communicate:0.78
-  },
-  overtime: {
-    extra:0.85, work:0.88, hours:0.92, late:0.88, pay:0.85,
-    shift:0.85, extended:0.88, compensation:0.82, time:0.82, bonus:0.78,
-    deadline:0.72, hustle:0.72, grind:0.72, workload:0.85, salary:0.75,
-    labor:0.78, weekend:0.72
-  },
-  pipeline: {
-    pipe:0.95, flow:0.88, oil:0.85, gas:0.85, conduit:0.92,
-    transport:0.85, infrastructure:0.85, tube:0.88, channel:0.85, process:0.78,
-    system:0.75, project:0.72, workflow:0.82, supply:0.78, route:0.75,
-    water:0.75, underground:0.82
-  },
-  quarantine: {
-    isolation:0.95, pandemic:0.92, lockdown:0.92, disease:0.85, confinement:0.88,
-    virus:0.85, covid:0.88, separate:0.82, containment:0.92, health:0.78,
-    exposure:0.82, restrict:0.82, protect:0.75, outbreak:0.85, hospital:0.72,
-    home:0.72, mandatory:0.78
+  inspection: {
+    inspect:0.95, walkthrough:0.95, check:0.88, assess:0.88, evaluate:0.88,
+    review:0.85, examine:0.88, survey:0.85, audit:0.85, condition:0.82,
+    report:0.78, findings:0.82, property:0.72, maintenance:0.72,
+    compliance:0.78, safety:0.75, standard:0.72, documentation:0.72,
+    schedule:0.42, form:0.45, checklist:0.75, visit:0.42, notice:0.42
   },
   renovation: {
-    remodel:0.95, repair:0.88, restore:0.88, upgrade:0.85, improve:0.82,
-    construction:0.88, rebuild:0.88, refresh:0.82, overhaul:0.88, fix:0.78,
-    contractor:0.85, home:0.78, interior:0.82, design:0.78, update:0.82,
-    transform:0.78, paint:0.75, flooring:0.82
+    remodel:0.95, upgrade:0.92, improve:0.88, restore:0.88, rebuild:0.88,
+    construction:0.88, repair:0.82, refresh:0.85, transform:0.85,
+    overhaul:0.88, update:0.82, modernize:0.88, property:0.72,
+    investment:0.72, contractor:0.78, design:0.72, enhance:0.82,
+    cost:0.42, budget:0.42, permit:0.45, timeline:0.42, plan:0.45
   },
-  satellite: {
-    orbit:0.95, space:0.92, signal:0.88, communication:0.88, transmission:0.85,
-    gps:0.88, dish:0.88, receiver:0.85, broadcast:0.82, nasa:0.82,
-    lunar:0.78, astronomy:0.78, relay:0.85, remote:0.78, weather:0.78,
-    telescope:0.75, tracking:0.82, data:0.75
+  repairs: {
+    fix:0.95, mend:0.92, restore:0.88, patch:0.88, remedy:0.88,
+    maintenance:0.92, service:0.82, technician:0.85, broken:0.82,
+    damage:0.82, replace:0.82, "work order":0.88, respond:0.72,
+    vendor:0.68, contractor:0.72, reliable:0.65, quick:0.65,
+    schedule:0.42, estimate:0.45, approval:0.42, part:0.42, material:0.4
   },
-  training: {
-    practice:0.92, exercise:0.88, learning:0.88, skill:0.85, drill:0.88,
-    coach:0.85, develop:0.82, program:0.82, fitness:0.82, education:0.82,
-    session:0.82, prepare:0.82, teach:0.78, course:0.82, workshop:0.85,
-    certification:0.82, onboarding:0.85, mentor:0.78
+  landscaping: {
+    lawn:0.95, grass:0.92, mowing:0.95, grounds:0.92, yard:0.92,
+    trees:0.88, shrubs:0.88, plants:0.85, garden:0.88, mulch:0.88,
+    trim:0.85, outdoor:0.78, property:0.72, maintenance:0.75,
+    seasonal:0.72, curb:0.85, appearance:0.72, crew:0.72,
+    cost:0.38, schedule:0.42, vendor:0.45, contract:0.42, weather:0.42
   },
-  upgrade:  {
-    improve:0.92, update:0.92, enhance:0.92, better:0.85, advance:0.88,
-    new:0.75, version:0.88, boost:0.88, modernize:0.88, premium:0.82,
-    feature:0.78, software:0.82, hardware:0.78, level:0.78, elevate:0.82,
-    progress:0.82, superior:0.78
+  utilities: {
+    water:0.92, electric:0.92, gas:0.92, power:0.88, sewer:0.92,
+    bill:0.85, meter:0.88, service:0.78, hookup:0.88, usage:0.82,
+    connection:0.82, supply:0.82, infrastructure:0.82, property:0.68,
+    maintenance:0.68, cost:0.65, resident:0.65, tenant:0.65,
+    payment:0.45, transfer:0.42, setup:0.45, disconnect:0.48, request:0.4
   },
-  vacancy: {
-    empty:0.88, open:0.85, available:0.92, job:0.88, position:0.88,
-    hire:0.85, listing:0.88, room:0.82, apartment:0.82, unoccupied:0.92,
-    posting:0.85, recruit:0.82, hotel:0.78, rental:0.82, lease:0.75,
-    opportunity:0.78, unfilled:0.88
+  electrical: {
+    electric:0.95, wiring:0.95, circuit:0.95, power:0.88, voltage:0.92,
+    outlet:0.92, breaker:0.95, panel:0.92, wire:0.92, amperage:0.88,
+    current:0.85, switch:0.85, fixture:0.85, maintenance:0.72,
+    repair:0.75, technician:0.78, inspection:0.72, utilities:0.78,
+    cost:0.38, permit:0.45, schedule:0.38, vendor:0.42, contractor:0.45
   },
-  window: {
-    glass:0.88, view:0.85, frame:0.85, pane:0.92, sill:0.92,
-    curtain:0.88, open:0.78, light:0.78, blinds:0.88, exterior:0.78,
-    wall:0.72, shutters:0.85, sunshine:0.75, breeze:0.75, transparent:0.82,
-    look:0.72, peep:0.72, screen:0.75
+  plumbing: {
+    pipes:0.95, water:0.88, drain:0.92, leak:0.92, faucet:0.92,
+    sewer:0.88, fixture:0.88, valve:0.92, toilet:0.88, sink:0.88,
+    pressure:0.82, clog:0.92, flow:0.82, maintenance:0.75,
+    repair:0.78, technician:0.78, utilities:0.75, inspection:0.72,
+    cost:0.38, permit:0.42, vendor:0.42, estimate:0.42, schedule:0.38
   },
-  expedition: {
-    adventure:0.92, explore:0.92, journey:0.88, trek:0.92, mission:0.85,
-    wilderness:0.88, team:0.78, discovery:0.88, voyage:0.92, quest:0.88,
-    survival:0.82, remote:0.82, mountain:0.82, polar:0.82, research:0.78,
-    geographic:0.85, camp:0.78, hike:0.82
+  lease: {
+    rent:0.95, tenant:0.92, contract:0.92, agreement:0.92, sign:0.85,
+    resident:0.88, renewal:0.92, term:0.85, occupancy:0.88,
+    landlord:0.85, legal:0.78, bind:0.82, document:0.78,
+    application:0.78, screening:0.78, "move-in":0.78, property:0.72,
+    expiration:0.52, notice:0.48, clause:0.55, addendum:0.62, form:0.48
   },
-  promotion: {
-    raise:0.88, advance:0.92, career:0.88, title:0.88, recognition:0.85,
-    marketing:0.82, job:0.82, opportunity:0.82, reward:0.82, success:0.78,
-    position:0.85, climb:0.82, salary:0.82, achievement:0.82, merit:0.82,
-    advertise:0.82, campaign:0.78
+  application: {
+    apply:0.95, form:0.88, submit:0.88, screening:0.95, prospect:0.92,
+    approval:0.88, deny:0.82, review:0.82, background:0.88,
+    credit:0.85, income:0.82, qualify:0.88, process:0.78,
+    resident:0.72, lease:0.78, "move-in":0.72, paperwork:0.82,
+    deadline:0.42, fee:0.48, office:0.42, portal:0.45, contact:0.35
   },
-  feedback: {
-    review:0.92, comment:0.88, critique:0.92, input:0.88, response:0.88,
-    opinion:0.85, evaluate:0.88, improve:0.82, constructive:0.92, assess:0.85,
-    performance:0.85, suggestion:0.88, rating:0.85, note:0.78, reflect:0.78,
-    communicate:0.75
+
+  // ── BEDROCK / FOUNDATION ──────────────────────────────────────────────────
+  foundation: {
+    base:0.95, groundwork:0.95, cornerstone:0.95, bedrock:0.95, roots:0.92,
+    structure:0.88, support:0.85, solid:0.88, stable:0.88, build:0.82,
+    core:0.85, ground:0.82, platform:0.82, strength:0.82,
+    framework:0.85, establish:0.78, principle:0.75, reliable:0.72,
+    concrete:0.45, construction:0.48, layer:0.38, depth:0.4, material:0.4
   },
-  calendar: {
-    schedule:0.92, date:0.88, month:0.92, year:0.88, planner:0.92,
-    appointment:0.92, week:0.88, day:0.82, event:0.88, organize:0.85,
-    agenda:0.88, reminder:0.85, deadline:0.82, meeting:0.82, time:0.78,
-    holiday:0.82, annual:0.82
+  cornerstone: {
+    foundation:0.95, keystone:0.95, bedrock:0.92, base:0.92, anchor:0.88,
+    essential:0.88, core:0.88, fundamental:0.92, critical:0.85, pillar:0.92,
+    support:0.82, centerpiece:0.88, strength:0.78, structure:0.78,
+    principle:0.82, value:0.78, establish:0.75, important:0.72, solid:0.78,
+    stone:0.58, building:0.45, construction:0.42, place:0.35, set:0.32
   },
-  champion: {
-    winner:0.95, first:0.88, victory:0.92, title:0.88, trophy:0.92,
-    compete:0.88, champion:1.0, athlete:0.85, gold:0.85, medal:0.88,
-    tournament:0.88, defend:0.85, legend:0.82, elite:0.82, best:0.82,
-    champ:0.95, succeed:0.78
+  stone: {
+    rock:0.95, granite:0.92, boulder:0.92, pebble:0.88, bedrock:0.88,
+    solid:0.82, hard:0.82, foundation:0.78, material:0.75, natural:0.72,
+    mineral:0.78, ground:0.72, quarry:0.82, strong:0.72, stable:0.72,
+    durable:0.72, heavy:0.68, earth:0.68, path:0.58, wall:0.62,
+    throw:0.35, step:0.42, pile:0.35, surface:0.45, color:0.3
   },
-  envelope: {
-    mail:0.92, letter:0.92, seal:0.88, stamp:0.88, send:0.82,
-    address:0.88, package:0.78, post:0.85, delivery:0.82, open:0.75,
-    flap:0.88, document:0.78, invitation:0.82, correspondence:0.88,
-    card:0.78, written:0.72
+  rock: {
+    stone:0.95, granite:0.92, boulder:0.92, bedrock:0.88, solid:0.85,
+    hard:0.82, stable:0.82, ground:0.75, mineral:0.75, foundation:0.78,
+    mountain:0.72, cliff:0.72, earth:0.68, strong:0.75, reliable:0.72,
+    steady:0.72, natural:0.68, durable:0.72, tough:0.72, heavy:0.65,
+    music:0.32, band:0.3, throw:0.3, climb:0.38, color:0.28
   },
-  festival: {
-    celebration:0.92, event:0.88, music:0.85, fair:0.88, cultural:0.88,
-    outdoor:0.82, gathering:0.85, holiday:0.82, food:0.78, carnival:0.88,
-    concert:0.85, parade:0.85, community:0.78, seasonal:0.82, annual:0.82,
-    crowd:0.78, entertainment:0.82
+  granite: {
+    stone:0.95, rock:0.92, bedrock:0.92, quarry:0.88, mineral:0.85,
+    solid:0.88, hard:0.88, durable:0.85, natural:0.78, foundation:0.78,
+    material:0.78, tough:0.82, heavy:0.75, stable:0.82, strong:0.82,
+    surface:0.68, countertop:0.72, building:0.65, earth:0.65, reliable:0.72,
+    color:0.35, polish:0.45, texture:0.48, slab:0.65, cut:0.38
   },
-  grateful: {
-    thankful:0.95, appreciate:0.92, gratitude:0.95, blessed:0.88, thanks:0.92,
-    recognition:0.85, acknowledge:0.85, humbled:0.85, sincere:0.78, kind:0.75,
-    generous:0.75, indebted:0.88, fortunate:0.88, satisfied:0.75
+  strength: {
+    strong:0.95, powerful:0.92, force:0.88, might:0.88, robust:0.88,
+    solid:0.85, sturdy:0.85, capable:0.82, resilient:0.88, tough:0.85,
+    endure:0.82, durable:0.82, reliable:0.78, foundation:0.75,
+    support:0.75, stable:0.78, grow:0.65, confidence:0.72, backbone:0.82,
+    exercise:0.42, physical:0.45, size:0.35, measure:0.35, level:0.38
   },
-  horizon: {
-    skyline:0.92, distance:0.88, sunset:0.88, sunrise:0.85, view:0.82,
-    line:0.85, far:0.78, future:0.78, ocean:0.78, vanishing:0.88,
-    landscape:0.82, panorama:0.85, edge:0.78, prospect:0.78, outlook:0.82,
-    breadth:0.75, expanse:0.82
+  solid: {
+    strong:0.92, sturdy:0.92, firm:0.92, stable:0.92, reliable:0.92,
+    dependable:0.88, trustworthy:0.88, consistent:0.88, durable:0.88,
+    sound:0.85, grounded:0.88, tough:0.85, foundation:0.82,
+    structure:0.78, support:0.78, steady:0.85, quality:0.72, safe:0.72,
+    material:0.42, shape:0.35, form:0.38, hard:0.65, dense:0.45
   },
-  inspire: {
-    motivate:0.95, encourage:0.92, uplift:0.88, empower:0.88, move:0.82,
-    creative:0.82, imagination:0.85, drive:0.82, spark:0.88, passion:0.85,
-    influence:0.85, lead:0.78, vision:0.82, aspire:0.92, fuel:0.78,
-    stimulate:0.88
+  structure: {
+    framework:0.95, foundation:0.92, build:0.88, construct:0.88, system:0.85,
+    organization:0.85, design:0.82, layout:0.82, support:0.82,
+    stable:0.82, solid:0.82, plan:0.75, order:0.78, property:0.68,
+    building:0.72, team:0.65, reliable:0.68, process:0.68, base:0.82,
+    material:0.38, type:0.32, size:0.32, shape:0.35, cost:0.32
   },
-  journey: {
-    travel:0.92, trip:0.92, adventure:0.88, voyage:0.92, path:0.88,
-    quest:0.88, route:0.85, explore:0.85, destination:0.88, experience:0.82,
-    road:0.85, discovery:0.85, passage:0.88, pilgrimage:0.88, trek:0.85,
-    wander:0.82
+  stability: {
+    stable:0.95, steady:0.95, secure:0.92, grounded:0.92, balanced:0.92,
+    reliable:0.88, consistent:0.88, dependable:0.88, solid:0.88,
+    firm:0.85, safe:0.82, established:0.82, trust:0.78,
+    foundation:0.82, support:0.78, structure:0.75, calm:0.72, strong:0.75,
+    measure:0.38, level:0.38, test:0.35, check:0.35, system:0.42
   },
-  kingdom: {
-    realm:0.95, monarchy:0.92, king:0.95, queen:0.92, royalty:0.92,
-    crown:0.88, castle:0.88, throne:0.92, empire:0.88, sovereign:0.88,
-    rule:0.82, domain:0.88, dynasty:0.88, subjects:0.82, medieval:0.82,
-    prince:0.88, princess:0.88
+  groundwork: {
+    foundation:0.95, base:0.92, preparation:0.92, setup:0.88, bedrock:0.92,
+    plan:0.85, establish:0.88, build:0.85, framework:0.92, roots:0.88,
+    cornerstone:0.88, essential:0.82, core:0.82, structure:0.78,
+    strategy:0.75, process:0.72, reliable:0.68, solid:0.78, start:0.68,
+    research:0.42, meeting:0.35, discuss:0.35, review:0.38, document:0.4
   },
-  library: {
-    books:0.95, read:0.92, shelves:0.92, knowledge:0.88, borrow:0.92,
-    catalog:0.88, archive:0.88, study:0.85, quiet:0.82, reference:0.88,
-    research:0.85, literature:0.88, fiction:0.82, nonfiction:0.82,
-    librarian:0.95, collection:0.88, manuscript:0.82
+
+  // ── BUILD / GROWTH ────────────────────────────────────────────────────────
+  build: {
+    construct:0.95, create:0.92, develop:0.92, establish:0.88, make:0.85,
+    grow:0.85, foundation:0.85, structure:0.85, design:0.82, plan:0.78,
+    assemble:0.85, form:0.78, craft:0.82, team:0.68, community:0.68,
+    improve:0.72, invest:0.72, progress:0.72, strong:0.68, achieve:0.68,
+    material:0.38, cost:0.35, time:0.35, project:0.45, permit:0.42
   },
-  mission: {
-    objective:0.92, goal:0.88, purpose:0.92, task:0.88, assignment:0.88,
-    explore:0.82, quest:0.85, aim:0.85, operation:0.88, vision:0.85,
-    strategy:0.82, accomplish:0.85, directive:0.88, mandate:0.88,
-    impossible:0.82, space:0.78
+  construct: {
+    build:0.95, create:0.92, assemble:0.92, erect:0.92, develop:0.88,
+    structure:0.88, design:0.85, framework:0.85, foundation:0.85,
+    form:0.82, engineer:0.82, make:0.82, plan:0.75, property:0.68,
+    renovation:0.72, improve:0.68, project:0.65, contractor:0.72, solid:0.68,
+    material:0.42, permit:0.45, cost:0.38, timeline:0.42, blueprint:0.52
   },
-  natural: {
-    organic:0.92, nature:0.95, earth:0.88, environment:0.88, wild:0.85,
-    pure:0.85, original:0.85, authentic:0.85, wholesome:0.85, fresh:0.82,
-    raw:0.82, ecological:0.88, biological:0.85, inherent:0.82, genuine:0.82
+  anchor: {
+    foundation:0.92, stable:0.92, grounded:0.92, cornerstone:0.88, hold:0.85,
+    secure:0.88, solid:0.88, reliable:0.88, steady:0.88, support:0.85,
+    base:0.88, roots:0.85, core:0.82, community:0.72, strength:0.78,
+    trust:0.72, team:0.68, principle:0.72, permanent:0.72, safe:0.72,
+    boat:0.38, chain:0.42, weight:0.38, drop:0.32, symbol:0.35
   },
-  opinion: {
-    view:0.92, belief:0.92, perspective:0.92, stance:0.88, position:0.88,
-    think:0.85, judgment:0.88, assessment:0.88, viewpoint:0.92, thought:0.85,
-    attitude:0.85, take:0.82, notion:0.88, bias:0.82, conclusion:0.82
+  roots: {
+    foundation:0.92, origin:0.92, ground:0.88, base:0.88, heritage:0.88,
+    established:0.85, grounded:0.88, history:0.82, community:0.82,
+    belong:0.82, anchor:0.85, deep:0.78, core:0.82, family:0.78,
+    home:0.78, culture:0.75, values:0.78, stable:0.75, tradition:0.78,
+    tree:0.48, plant:0.42, soil:0.42, nature:0.38, earth:0.42
   },
-  pattern: {
-    design:0.88, repeat:0.92, motif:0.92, template:0.88, sequence:0.88,
-    structure:0.85, model:0.85, arrangement:0.88, fabric:0.82, trend:0.85,
-    cycle:0.82, rhythm:0.82, regular:0.82, systematic:0.85, blueprint:0.82
+  framework: {
+    structure:0.95, foundation:0.92, system:0.88, blueprint:0.88, groundwork:0.92,
+    plan:0.85, organize:0.82, design:0.85, process:0.82, guide:0.78,
+    support:0.78, order:0.78, establish:0.82, team:0.68, principle:0.75,
+    reliable:0.72, consistent:0.72, build:0.78, strategy:0.82, policy:0.72,
+    document:0.42, review:0.38, meeting:0.35, update:0.38, version:0.32
   },
-  quality: {
-    excellence:0.92, standard:0.92, grade:0.88, value:0.88, superior:0.88,
-    premium:0.88, craftsmanship:0.88, performance:0.85, measure:0.82,
-    benchmark:0.88, integrity:0.82, reliable:0.85, top:0.82, best:0.82,
-    merit:0.85
+  platform: {
+    foundation:0.92, base:0.92, stage:0.88, launch:0.85, structure:0.85,
+    build:0.82, support:0.82, system:0.82, framework:0.88, establish:0.82,
+    grow:0.78, elevate:0.82, core:0.78, community:0.68, tool:0.65,
+    reliable:0.68, stable:0.75, develop:0.72, create:0.68, access:0.58,
+    digital:0.42, online:0.38, version:0.32, update:0.38, interface:0.38
   },
-  rapport: {
-    connection:0.92, trust:0.92, relationship:0.92, bond:0.92, harmony:0.88,
-    communication:0.88, understanding:0.88, chemistry:0.88, empathy:0.88,
-    friendly:0.82, open:0.78, mutual:0.85, comfortable:0.82, engage:0.82,
-    teamwork:0.82
+  growth: {
+    grow:0.95, develop:0.92, expand:0.92, progress:0.92, advance:0.92,
+    improve:0.88, increase:0.85, build:0.82, achieve:0.82, success:0.82,
+    potential:0.82, thrive:0.88, invest:0.78, team:0.68, community:0.68,
+    learn:0.72, opportunity:0.75, goal:0.68, change:0.65, stronger:0.78,
+    measure:0.38, track:0.38, report:0.35, plan:0.42, budget:0.38
   },
-  silence: {
-    quiet:0.95, peaceful:0.88, still:0.88, hush:0.92, mute:0.92,
-    calm:0.85, tranquil:0.88, noiseless:0.92, soundless:0.92, serene:0.85,
-    whisper:0.82, pause:0.82, empty:0.78, meditation:0.82, void:0.78,
-    absence:0.82
+  reliability: {
+    reliable:0.95, dependable:0.95, consistent:0.92, trustworthy:0.92, steady:0.92,
+    honest:0.82, accountable:0.85, deliver:0.85, promise:0.82, solid:0.85,
+    faithful:0.85, proven:0.82, certain:0.78, service:0.72, maintenance:0.68,
+    quality:0.72, team:0.65, safe:0.68, responsive:0.78, support:0.68,
+    measure:0.38, standard:0.45, report:0.35, test:0.35, system:0.38
   },
-  triumph: {
-    victory:0.95, win:0.92, success:0.92, achieve:0.88, overcome:0.88,
-    celebrate:0.85, glory:0.92, conquer:0.92, champion:0.88, prevail:0.92,
-    accomplishment:0.88, milestone:0.85, proud:0.82, reward:0.82, earn:0.82
+  consistency: {
+    consistent:0.95, reliable:0.92, steady:0.92, uniform:0.88, dependable:0.92,
+    predictable:0.88, trustworthy:0.85, accountable:0.82, repeat:0.85,
+    standard:0.82, always:0.78, deliver:0.82, quality:0.78, process:0.72,
+    team:0.68, service:0.72, performance:0.75, maintain:0.75, solid:0.72,
+    measure:0.38, track:0.38, review:0.38, report:0.35, schedule:0.42
   },
-  uniform: {
-    outfit:0.88, costume:0.85, dress:0.85, standard:0.88, consistent:0.92,
-    military:0.88, school:0.85, identical:0.92, same:0.85, formal:0.82,
-    regulation:0.88, clothing:0.82, attire:0.88, matching:0.88, team:0.78
-  },
-  venture: {
-    business:0.88, startup:0.88, risk:0.88, invest:0.85, enterprise:0.92,
-    explore:0.85, bold:0.82, endeavor:0.92, undertaking:0.92, initiative:0.88,
-    capital:0.85, launch:0.85, opportunity:0.82, pioneer:0.82
-  },
-  weather: {
-    climate:0.92, forecast:0.92, rain:0.88, sun:0.85, temperature:0.88,
-    storm:0.88, wind:0.85, snow:0.85, humidity:0.88, atmosphere:0.88,
-    conditions:0.88, seasonal:0.85, cloudy:0.88, sunny:0.85, meteorology:0.92
-  },
-  younger: {
-    youth:0.92, junior:0.88, child:0.82, teenage:0.88, age:0.85,
-    immature:0.82, fresh:0.78, novice:0.78, early:0.78, less:0.72,
-    smaller:0.72, vibrant:0.72, new:0.72
-  },
-  achieve: {
-    accomplish:0.95, succeed:0.92, attain:0.92, reach:0.88, complete:0.88,
-    win:0.85, master:0.88, fulfill:0.92, deliver:0.85, realize:0.88,
-    excel:0.88, triumph:0.85, milestone:0.82, goal:0.85, earn:0.85
-  },
-  balance: {
-    equilibrium:0.95, stability:0.92, harmony:0.88, equal:0.88, scale:0.88,
-    steady:0.88, symmetry:0.92, center:0.82, poise:0.92, level:0.85,
-    proportion:0.88, fair:0.82, distribute:0.82, weighted:0.85
-  },
-  capture: {
-    catch:0.92, photo:0.88, record:0.88, seize:0.88, hold:0.82,
-    trap:0.85, snapshot:0.88, film:0.85, memorialize:0.82, arrest:0.78,
-    gather:0.78, save:0.78, document:0.82, preserve:0.82, freeze:0.82
-  },
-  dolphin: {
-    mammal:0.88, ocean:0.88, sea:0.88, aquatic:0.88, marine:0.92,
-    swim:0.88, intelligent:0.85, playful:0.88, echolocation:0.92, pod:0.88,
-    porpoise:0.92, flipper:0.92, whale:0.82, fish:0.72, jump:0.82,
-    bottle:0.85, bottlenose:0.95
-  },
-  elegant: {
-    graceful:0.92, refined:0.92, sophisticated:0.92, classy:0.92, stylish:0.88,
-    poised:0.88, tasteful:0.88, sleek:0.85, polished:0.88, chic:0.88,
-    beautiful:0.82, luxurious:0.85, exquisite:0.88, dignified:0.88,
-    understated:0.85
+  improvement: {
+    improve:0.95, better:0.92, enhance:0.92, upgrade:0.92, advance:0.88,
+    progress:0.88, develop:0.85, grow:0.85, achieve:0.82, change:0.78,
+    renovate:0.78, refine:0.85, elevate:0.82, feedback:0.72, goal:0.68,
+    invest:0.72, quality:0.72, process:0.68, learn:0.68, build:0.72,
+    plan:0.42, measure:0.42, review:0.42, track:0.38, report:0.38
   }
 };
 
